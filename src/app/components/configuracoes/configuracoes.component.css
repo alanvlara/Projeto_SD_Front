@@ -1,0 +1,6 @@
+#tema, #linguagem{
+    background-color: #cb3dd8; 
+}
+#tema:hover, #linguagem:hover{
+    background-color: rgb(118, 11, 139);
+}

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4">
+            <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="buscar" class="btn btn-mg" type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3 ">
+        <div class="col-12 ">
+            <h2 class="text-center" style="color: rgb(118, 11, 139); margin-bottom: 40px;">Ranking</h2>
+            <ul>
+              <li *ngFor="let pessoa of pessoas.slice((paginaAtual - 1) * pessoasPorPagina, paginaAtual * pessoasPorPagina)|keyvalue, let i = index" class="list-group">
+              <div class="list-group">
+                <a role="banner" class="list-group-item list-group-item-action lista-ranking">
+                  <div class="d-flex w-100 justify-content-between">
+                    <div>{{ i + 1 }}°</div>
+                    <img src="{{pessoa.value.foto}}" class="rounded-circle img-fluid " style="width: 80px;" />
+                    <h5 class="my-auto">{{pessoa.value.first_name}} {{pessoa.value.last_name}}</h5>
+                    <p class="my-auto">{{pessoa.value.esportePreferido}}</p>
+                    <small class="text-body-secondary my-auto">{{pessoa.value.totalEventos}}</small>
+                  </div>
+                </a>
+              </div>  
+              </li>
+            </ul> 
+        </div>
+    </div>
+</div>

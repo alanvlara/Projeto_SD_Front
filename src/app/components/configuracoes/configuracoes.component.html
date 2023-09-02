@@ -1,0 +1,86 @@
+<div class="container-fluid mt-3">
+    <h2>Preencha os campos</h2>
+<form [formGroup]="form">
+    <div class="row mb-3">
+        <div class="col-6">
+            <label for="username">Username</label>
+            <input id="username" type="text" class="form-control" formControlName="username">
+        </div>
+        <div class="col-6">
+            <label for="foto">Foto</label>
+            <input #fotoInput (change)="onFileSelected($event)" accept="image/*" placeholder="" id="foto" type="file" class="form-control" formControlName="foto">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" class="form-control" formControlName="nome">
+        </div>
+        <div class="col-6">
+            <label for="sobrenome">Sobrenome</label>
+            <input id="sobrenome" type="text" class="form-control" formControlName="sobrenome">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <label for="esportePreferido">Esporte Preferido</label>
+            <select data-dropup-auto="false" class="form-select form-control" aria-label="Default select example"  formControlName="esportePreferido">
+                <option selected>Clique para selecionar</option>
+                <option value="Atletismo">Atletismo</option>
+                <option value="Badminton">Badminton</option>
+                <option value="Basquete">Basquete</option>
+                <option value="Corrida">Corrida</option>
+                <option value="Dança">Dança</option>
+                <option value="Futebol">Futebol</option>
+                <option value="Futsal">Futsal</option>
+                <option value="Ginástica">Ginástica</option>
+                <option value="Handeball">Handeball</option>
+                <option value="Judô">Judô</option>
+                <option value="Natação">Natação</option>
+                <option value="Passeio">Passeio</option>
+                <option value="Tênis de Campo">Tênis de Campo</option>
+                <option value="Tênis de Mesa">Tênis de Mesa</option>
+                <option value="Torneio de Cheerleaders">Torneio de Cheerleaders</option>
+                <option value="Vôlei">Vôlei</option>
+                <option value="Xadrez">Xadrez</option>
+            </select>
+        </div>
+        <div class="col-6">
+            <label for="endereco">Endereço</label>
+            <input id="endereco" type="text" class="form-control"
+                formControlName="endereco">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <label for="cep">CEP</label>
+            <input id="cep" type="text" class="form-control" formControlName="cep">
+        </div>
+        <div class="col-2">
+            <label for="estado">Estado</label>
+            <input id="estado" type="text" class="form-control" formControlName="estado">
+        </div>
+        <div class="col-6">
+            <label for="cidade">Cidade</label>
+            <input id="cidade" type="text" class="form-control" formControlName="cidade">
+        </div>
+        
+    </div>
+
+</form>
+
+<div class="row">
+    <div class="col mb-1">
+        <button class="btn btn-success" (click)="salvar()">Salvar</button>
+        <a class="btn btn-danger" (click)="navigateToProfile()">Cancelar</a>
+    </div>
+    <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">
+        Dados atualizados com sucesso
+    </div>
+    <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+        Não foi possível atualizar seus dados
+    </div>
+</div>
+  

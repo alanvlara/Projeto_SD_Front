@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+      <div class="col-8 mt-3">
+        <button routerLink="/criar-atividade" id="criar-atividade" class="btn btn-mg">Registrar Nova Atividade</button>
+      </div>
+      <div class="col-4">
+          <form class="d-flex mt-3 form-group" role="search">
+              <input [(ngModel)]="texto" name="busca" class="form-control me-2" type="search" placeholder="Ex: Corrida" aria-label="Search">
+              <button id="buscar" class="btn btn-mg" >Buscar</button>
+          </form>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-l-12">
+        <h2 class="text-center" style="color: rgb(118, 11, 139);">Atividades</h2>
+        <ul>
+          <li *ngFor="let atividade of atividades.slice().reverse().slice((paginaAtual - 1) * atividadesPorPagina, paginaAtual * atividadesPorPagina)|keyvalue" class="list-group">
+            <a role="banner" class="list-group-item list-group-item-action lista-atividades"  [routerLink]="['/atividades', atividade.value.id]">
+              <div class="d-md-flex flex-md-row flex-md-wrap align-items-md-start">
+                <div class="col-4"></div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                  <img src="{{atividade.value.foto}}" class="rounded img-fluid" style="width: 100%; height: 200px;" />
+                </div>
+                <div class="col-md-12">
+                  <h5 class="my-auto">{{atividade.value.evento['titulo']}}</h5>
+                  <!-- <p class="my-auto">{{atividade.value.cidade}}</p> -->
+                  <small class="text-body-secondary my-auto">{{atividade.value.evento.esporte}}</small>
+                  <br>
+                  <small class="text-body-secondary my-auto">{{atividade.value.data | date: 'dd/MM/YYYY'}}</small>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center mt-3">
+        <button class="btn btn-primary me-2" (click)="paginaAtual = paginaAtual - 1" [disabled]="paginaAtual === 1">Anterior</button>
+        <button class="btn btn-primary" (click)="paginaAtual = paginaAtual + 1" [disabled]="paginaAtual * atividadesPorPagina >= atividades.length">Próxima</button>
+      </div>
+    </div>
+</div>

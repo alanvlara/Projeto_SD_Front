@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-8 mt-3">
+        <button routerLink="/criar-evento" id="criar-evento" class="btn btn-mg">Criar Evento</button>
+      </div>
+      <div class="col-4">
+          <form class="d-flex mt-3 form-group" role="search">
+              <input [(ngModel)]="texto" name="busca" class="form-control me-2" type="search" placeholder="Ex: Corrida" aria-label="Search">
+              <button id="buscar" class="btn btn-mg" >Buscar</button>
+          </form>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <h2 class="text-center" style="color: rgb(118, 11, 139);">Eventos</h2>
+        <ul class="list-group">
+          <li *ngFor="let evento of eventos | keyvalue" class="list-group-item lista-eventos">
+            <div class="d-flex flex-column flex-md-row align-items-center">
+              <img src="{{evento.value.foto}}" class="rounded img-fluid mb-3 mb-md-0" style="width: 100px; height: 60px;" />
+              <div class="flex-grow-1 mx-md-3 d-md-inline">
+                <h5 class="ms-md-5" style="width: 100px;">{{ evento.value.titulo}}</h5>
+                <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.esporte}}</small>
+                <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.data | date: 'dd/MM/YYYY'}}</small>
+                <small class="d-md-inline">Saiba mais em:&nbsp;&nbsp;&nbsp;&nbsp;<a style="width: 600px;" class="flex-column" href="{{evento.value.link}}">{{ evento.value.link}}</a></small>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>

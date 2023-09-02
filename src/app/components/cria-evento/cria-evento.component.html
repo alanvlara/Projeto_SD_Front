@@ -1,0 +1,92 @@
+<div *ngIf="!qrCodeCriado" class="container-fluid mt-3">
+    <h2>Preencha os campos do Evento</h2>
+    <form [formGroup]="form">
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="titulo">Titulo</label>
+                <input placeholder="Ex: Corrida Unimed" id="titulo" type="text" class="form-control"
+                    formControlName="titulo" [ngClass]="{
+                    'is-valid': form.get('titulo')?.valid,
+                    'is-invalid': form.get('titulo')?.invalid && (form.get('titulo')?.touched || form.get('titulo')?.dirty)
+                }">
+                <ul *ngIf="(form.get('titulo')?.invalid && (form.get('titulo')?.touched || form.get('titulo')?.dirty))">
+                    <li>Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="link">Link</label>
+                <input placeholder="Cole o link do evento" id="link" type="url" class="form-control"
+                    formControlName="link" [ngClass]="{
+                    'is-valid': form.get('link')?.valid,
+                    'is-invalid': form.get('link')?.invalid && (form.get('link')?.touched || form.get('link')?.dirty)
+                }">
+                <ul *ngIf="(form.get('link')?.invalid && (form.get('link')?.touched || form.get('link')?.dirty))">
+                    <li>Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="data">Data</label>
+                <input placeholder="Cole o data do evento" id="data" type="date" class="form-control"
+                    formControlName="data" [ngClass]="{
+                    'is-valid': form.get('data')?.valid,
+                    'is-invalid': form.get('data')?.invalid && (form.get('data')?.touched || form.get('data')?.dirty)
+                }">
+                <ul *ngIf="(form.get('data')?.invalid && (form.get('data')?.touched || form.get('data')?.dirty))">
+                    <li>Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="esporte">Esporte</label>
+                <input placeholder="Ex: Corrida" id="esporte" type="url" class="form-control" formControlName="esporte"
+                    [ngClass]="{
+                    'is-valid': form.get('esporte')?.valid,
+                    'is-invalid': form.get('esporte')?.invalid && (form.get('esporte')?.touched || form.get('esporte')?.dirty)
+                }">
+                <ul
+                    *ngIf="(form.get('esporte')?.invalid && (form.get('esporte')?.touched || form.get('esporte')?.dirty))">
+                    <li>Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <label for="foto">Foto</label>
+                <input #fotoInput (change)="onFileSelected($event)" accept="image/*" placeholder="" id="foto"
+                    type="file" class="form-control" formControlName="foto" [ngClass]="{
+                'is-valid': form.get('foto')?.valid,
+                'is-invalid': form.get('foto')?.invalid && (form.get('foto')?.touched || form.get('foto')?.dirty)
+            }">
+                <ul *ngIf="(form.get('foto')?.invalid && (form.get('foto')?.touched || form.get('foto')?.dirty))">
+                    <li>Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
+        <button [disabled]="criarClicado" id="criar" class="btn btn-mg" (click)="criar()">Criar</button>
+        <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">
+            Evento Cadastrado, aguarde pelo QrCode do evento
+        </div>
+        <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+            Erro ao cadastrar o evento
+        </div>
+    </form>
+</div>
+
+<div *ngIf="qrCodeCriado" class="container-fluid mt-3">
+    <div class="row mb-3">
+      <div class="col-12 d-flex flex-column align-items-center">
+        <div class="text-center mb-3">
+          O QrCode do seu evento foi gerado, guarde-o para confirmar a presença dos participantes no dia.
+          Aviso: Basta o participante ler esse Qrcode na conta dele e a presença dele no evento estará garantida.
+          Caso precise desse Qrcode basta acessar o menu "meus eventos".
+        </div>
+        <br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data={{nomeQrCode}}&size=150x150" alt="" title="" />
+      </div>
+    </div>
+  </div>

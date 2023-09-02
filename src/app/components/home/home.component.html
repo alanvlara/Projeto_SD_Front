@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row ">
+      <div class="col-md-6 mt-5">
+        <div class="row justify-content-center">
+          <h2 class="text-center">Desporpato</h2>
+          <br>
+          <br>
+          <img class="image-fluid" style="width: 600px; height: 500px;" src="../../../assets/images/a white duck pl 1.png" alt="">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row justify-content-center">
+          <div class="col-md-4 mt-5 mb-5">
+            <div class="card p-5 mt-5" style="width: 20rem;">
+              <form [formGroup]="form">
+                <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+                <label for="email">E-mail</label>
+                <input placeholder="" id="email" type="text" class="form-control" formControlName="email">
+                <label for="senha">Senha</label>
+                <input id="senha" placeholder="" type="password" class="form-control" formControlName="senha">
+                <div class="mb-3">
+                  <a routerLink="/cadastro" routerLinkActive="active">Criar uma conta</a>
+                </div>
+                <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+                  Usuário e/ou senha incorretos
+                </div>
+                <button [disabled]="entrarClicado" id="signIn" class="btn btn-mg" (click)="entrar()">Entrar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>

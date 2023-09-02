@@ -1,0 +1,11 @@
+#home:hover,
+#sobre:hover,
+#eventos:hover,
+#logOut:hover,
+#configuracoes:hover,
+#sair:hover,
+#meuPerfil:hover,
+#meus-eventos:hover,
+#tema:hover {
+    background-color: rgb(118, 11, 139);
+}

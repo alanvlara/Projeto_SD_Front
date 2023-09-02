@@ -1,0 +1,42 @@
+<div class="container-fluid d-flex justify-content-center mt-5">
+    <div class="col-md-4">
+        <section class="vh-100">
+            <div class="container py-1 h-100">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-md-12 col-xl-12">
+    
+                        <div class="card" style=" height: 100%; border-radius: 15px;">
+                            <h2 class="m-4 text-center">Registrar Nova Atividade</h2>
+                            <div *ngIf="cameraFechada" class="row mt-1 justify-content-center">
+                                    <button class="col-4 btn btn-primary me-1" (click)="lerQrCode()">Ler QRcode</button>
+                                    <button class="col-4 btn btn-warning" (click)="tirarFoto()">Tirar Foto</button>
+                            </div>
+                            <div *ngIf="cameraFechada" class="row mt-1 justify-content-center">
+                                <button [disabled]="qrCodeNaoLido" class="col-4 btn btn-success"(click)="testeClickSalvar()">Salvar</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center" id="reader-container">
+                            <!-- <div style="width: 100%;" id="reader"></div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="width: 100%" id="fotoContainer"></div>
+                            </div>
+                        </div>
+                            <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">
+                                Atividade cadastrada com sucesso!
+                            </div>
+                            <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+                                Essa Atividade já foi cadastrada para você!
+                            </div>
+                            <div *ngIf="mostraEventoNaoEncontrado" class="alert alert-warning" role="alert">
+                                Evento Não Encontrado!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    </div>

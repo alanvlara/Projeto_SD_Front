@@ -1,0 +1,17 @@
+.lista-eventos:hover{
+    background-color: rgb(118, 11, 139);
+}
+
+#buscar{
+    background-color: #cb3dd8; 
+}
+#buscar:hover{
+    background-color: rgb(118, 11, 139);
+}
+
+#criar-evento{
+    background-color: #cb3dd8; 
+}
+#criar-evento:hover{
+    background-color: rgb(118, 11, 139);
+}

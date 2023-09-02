@@ -1,0 +1,197 @@
+<div class="container-fluid mt-3">
+    <h2>Preencha os campos</h2>
+    <form [formGroup]="form">
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="username">Username</label>
+                <input placeholder="Ex: João01" id="username" type="text" class="form-control" formControlName="username"
+                    [ngClass]="{
+                    'is-valid': form.get('username')?.valid,
+                    'is-invalid': form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty)
+                }">
+                <ul *ngIf="(form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty))">
+                    <li>Campo obrigatório</li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <label for="email">E-mail</label>
+                <input placeholder="joao@gmail.com" id="email" type="text" class="form-control" formControlName="email"
+                    [ngClass]="{
+                    'is-valid': form.get('email')?.valid,
+                    'is-invalid': form.get('email')?.invalid && (form.get('email')?.touched || form.get('email')?.dirty)
+                    }">
+                <ul *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || form.get('email')?.dirty)">
+                    <li *ngIf="form.get('email')?.hasError('required')">Campo obrigatório</li>
+                    <li *ngIf="form.get('email')?.hasError('email')">E-mail inválido</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="nome">Nome</label>
+                <input placeholder="Ex: João" id="nome" type="text" class="form-control" formControlName="nome"
+                    [ngClass]="{
+                    'is-valid': form.get('nome')?.valid,
+                    'is-invalid': form.get('nome')?.invalid && (form.get('nome')?.touched || form.get('nome')?.dirty)
+                }">
+                <ul *ngIf="(form.get('nome')?.invalid && (form.get('nome')?.touched || form.get('nome')?.dirty))">
+                    <li>Campo obrigatório</li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <label for="sobrenome">Sobrenome</label>
+                <input placeholder="Ex: Da Silva" id="sobrenome" type="text" class="form-control" formControlName="sobrenome"
+                    [ngClass]="{
+                    'is-valid': form.get('sobrenome')?.valid,
+                    'is-invalid': form.get('sobrenome')?.invalid && (form.get('sobrenome')?.touched || form.get('sobrenome')?.dirty)
+                    }">
+                <ul *ngIf="form.get('sobrenome')?.invalid && (form.get('sobrenome')?.touched || form.get('sobrenome')?.dirty)">
+                    <li *ngIf="form.get('sobrenome')?.hasError('required')">Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="senha">Senha</label>
+                <input id="senha" type="password" class="form-control" formControlName="senha" [ngClass]="{
+                'is-valid': form.get('senha')?.valid,
+                'is-invalid': form.get('senha')?.invalid && (form.get('senha')?.touched || form.get('senha')?.dirty)
+            }">
+                <ul *ngIf="form.get('senha')?.invalid && (form.get('senha')?.touched || form.get('senha')?.dirty)">
+                    <li *ngIf="form.get('senha')?.hasError('required')">Campo obrigatório</li>
+                    <li *ngIf="form.get('senha')?.hasError('maxlength')">Digite no máximo 20 dígitos</li>
+                    <li *ngIf="form.get('senha')?.hasError('minlength')">Digite no mínimo 4 digitos</li>
+                    <li *ngIf="form.get('senha')?.hasError('forcaSenha')">A senha deve conter pelo menos 8 dígitos, uma letra
+                        maiúscula, uma
+                        letra minúscula e um número</li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <label for="confirmaSenha">Confirmação da Senha</label>
+                <input id="confirmaSenha" type="password" class="form-control" formControlName="confirmaSenha"
+                    [ngClass]="{
+                'is-valid': form.get('confirmaSenha')?.valid,
+                'is-invalid': form.get('confirmaSenha')?.invalid && (form.get('confirmaSenha')?.touched || form.get('confirmaSenha')?.dirty)
+            }">
+                <ul
+                    *ngIf="form.get('confirmaSenha')?.invalid && (form.get('confirmaSenha')?.touched || form.get('confirmaSenha')?.dirty)">
+                    <li *ngIf="form.get('confirmaSenha')?.hasError('required')">Campo obrigatório</li>
+                    <li *ngIf="form.get('confirmaSenha')?.hasError('maxlength')">Digite no máximo 20 dígitos</li>
+                    <li *ngIf="form.get('confirmaSenha')?.hasError('minlength')">Digite no mínimo 4 digitos</li>
+                    <li *ngIf="form.get('confirmaSenha')?.hasError('senhasIguais')">As senhas não conferem</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="cpf">CPF</label>
+                <input id="cpf" type="text" class="form-control" formControlName="cpf" [ngClass]="{
+                    'is-valid': form.get('cpf')?.valid,
+                    'is-invalid': form.get('cpf')?.invalid && (form.get('cpf')?.touched || form.get('cpf')?.dirty)
+                }">
+                <ul *ngIf="form.get('cpf')?.invalid && (form.get('cpf')?.touched || form.get('cpf')?.dirty)">
+                    <li *ngIf="form.get('cpf')?.hasError('required')">Campo obrigatório</li>
+                    <li *ngIf="form.get('cpf')?.hasError('cpf')">CPF inválido</li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <label for="esportePreferido">Esporte Preferido</label>
+                <select data-dropup-auto="false" class="form-select form-control" aria-label="Default select example"  formControlName="esportePreferido"
+                     [ngClass]="{
+                    'is-valid': form.get('esportePreferido')?.valid,
+                    'is-invalid': form.get('esportePreferido')?.invalid && (form.get('esportePreferido')?.touched || form.get('esportePreferido')?.dirty)
+                }">
+                    <option selected>Clique para selecionar</option>
+                    <option value="Atletismo">Atletismo</option>
+                    <option value="Badminton">Badminton</option>
+                    <option value="Basquete">Basquete</option>
+                    <option value="Corrida">Corrida</option>
+                    <option value="Dança">Dança</option>
+                    <option value="Futebol">Futebol</option>
+                    <option value="Futsal">Futsal</option>
+                    <option value="Ginástica">Ginástica</option>
+                    <option value="Handeball">Handeball</option>
+                    <option value="Judô">Judô</option>
+                    <option value="Natação">Natação</option>
+                    <option value="Passeio">Passeio</option>
+                    <option value="Tênis de Campo">Tênis de Campo</option>
+                    <option value="Tênis de Mesa">Tênis de Mesa</option>
+                    <option value="Torneio de Cheerleaders">Torneio de Cheerleaders</option>
+                    <option value="Vôlei">Vôlei</option>
+                    <option value="Xadrez">Xadrez</option>
+                </select>
+                <ul
+                    *ngIf="form.get('esportePreferido')?.invalid && (form.get('esportePreferido')?.touched || form.get('esportePreferido')?.dirty)">
+                    <li *ngIf="form.get('esportePreferido')?.hasError('required')">Campo obrigatório</li>
+                </ul>
+            </div>
+        <div class="row mb-3">
+            <div class="col-6 mt-3">
+                <label for="cep">CEP</label>
+                <input placeholder="Ex: 00000-000" id="cep" type="text" class="form-control" formControlName="cep"
+                    [ngClass]="{
+                    'is-valid': form.get('cep')?.valid,
+                    'is-invalid': form.get('cep')?.invalid && (form.get('cep')?.touched || form.get('cep')?.dirty)
+                }">
+                <ul *ngIf="form.get('cep')?.invalid && (form.get('cep')?.touched || form.get('cep')?.dirty)">
+                    <li *ngIf="form.get('cep')?.hasError('required')">Campo obrigatório</li>
+                    <!-- <li *ngIf="form.get('esportePreferido')?.hasError('esportePreferido')">esportePreferido inválido</li> -->
+                </ul>
+            </div>
+            <div class="col-5 mt-3">
+                <label for="endereco">Endereço</label>
+                <input placeholder="Ex: Rua dos Alfeneiros" id="endereco" type="text" class="form-control"
+                    formControlName="endereco" [ngClass]="{
+                    'is-valid': form.get('endereco')?.valid,
+                    'is-invalid': form.get('endereco')?.invalid && (form.get('endereco')?.touched || form.get('endereco')?.dirty)
+                }">
+                <ul
+                    *ngIf="form.get('endereco')?.invalid && (form.get('endereco')?.touched || form.get('endereco')?.dirty)">
+                    <li *ngIf="form.get('endereco')?.hasError('required')">Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
+            <div class="col-10">
+                <label for="cidade">Cidade</label>
+                <input placeholder="Ex: São Paulo" id="cidade" type="text" class="form-control" formControlName="cidade"
+                    [ngClass]="{
+                    'is-valid': form.get('cidade')?.valid,
+                    'is-invalid': form.get('cidade')?.invalid && (form.get('cidade')?.touched || form.get('cidade')?.dirty)
+                }">
+                <ul *ngIf="form.get('cidade')?.invalid && (form.get('cidade')?.touched || form.get('cidade')?.dirty)">
+                    <li *ngIf="form.get('cidade')?.hasError('required')">Campo obrigatório</li>
+                    <!-- <li *ngIf="form.get('cidade')?.hasError('cidade')">esportePreferido inválido</li> -->
+                </ul>
+            </div>
+            <div class="col-2">
+                <label for="estado">Estado</label>
+                <input placeholder="Ex: SP" id="estado" type="text" class="form-control" formControlName="estado"
+                    [ngClass]="{
+                    'is-valid': form.get('estado')?.valid,
+                    'is-invalid': form.get('estado')?.invalid && (form.get('estado')?.touched || form.get('estado')?.dirty)
+                }">
+                <ul *ngIf="form.get('estado')?.invalid && (form.get('estado')?.touched || form.get('estado')?.dirty)">
+                    <li *ngIf="form.get('estado')?.hasError('required')">Campo obrigatório</li>
+                    <!-- <li *ngIf="form.get('cidade')?.hasError('cidade')">esportePreferido inválido</li> -->
+                </ul>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="row">
+        <div class="col mb-1">
+            <button class="btn btn-success" (click)="salvar()">Salvar</button>
+            <a class="btn btn-danger" href="/home">Cancelar</a>
+        </div>
+        <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">
+            E-mail de verificação enviado, favor verifique sua caixa de mensagens
+        </div>
+        <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+            Os dados fornecidos não atendem os padrões necessários por favor verifique
+        </div>
+    </div>
+</div>
