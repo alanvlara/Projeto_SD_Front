@@ -19,6 +19,7 @@
               <img src="{{evento.value.foto}}" class="rounded img-fluid mb-3 mb-md-0" style="width: 100px; height: 60px;" />
               <div class="flex-grow-1 mx-md-3 d-md-inline">
                 <h5 class="ms-md-5" style="width: 100px;">{{ evento.value.titulo}}</h5>
+                <button *ngIf="evento.value.qr_code" id="qr_code" class="btn btn-sm ms-md-4" (click)="acessarQrCode(evento)">Acessar Qr Code</button>
                 <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.esporte}}</small>
                 <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.data | date: 'dd/MM/YYYY'}}</small>
                 <small class="d-md-inline">Saiba mais em:&nbsp;&nbsp;&nbsp;&nbsp;<a style="width: 600px;" class="flex-column" href="{{evento.value.link}}">{{ evento.value.link}}</a></small>
@@ -28,4 +29,9 @@
         </ul>
       </div>
     </div>
+</div>
+<div class="container">
+  <div class="row">
+    
+  </div>
 </div>

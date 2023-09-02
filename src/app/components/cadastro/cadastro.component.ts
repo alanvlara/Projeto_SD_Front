@@ -74,20 +74,33 @@ export class CadastroComponent {
   
 
   salvar(): void {
-      if (this.form.invalid) {
-          this.form.markAllAsTouched();
-          return;
-      }
-      const usuario = this.form.getRawValue();
-      
-      of(this.api.postUser(usuario).subscribe({
-      next: data => {console.log(data)
-      this.mostraSucesso = true},
-      error: erro => {console.log(erro)
-      this.mostraFracasso = true},
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+  
+    const usuario = {
+      ...this.form.getRawValue(),
+      esportePreferido: this.form.get('esportePreferido')?.value,
+      cpf: this.form.get('cpf')?.value,
+      cep: this.form.get('cep')?.value,
+      endereco: this.form.get('endereco')?.value,
+      cidade: this.form.get('cidade')?.value,
+      estado: this.form.get('estado')?.value,
+    };
+  
+    console.log(usuario);
+  
+    of(this.api.postUser(usuario).subscribe({
+      next: data => {
+        console.log(data);
+        this.mostraSucesso = true;
+      },
+      error: erro => {
+        console.log(erro);
+        this.mostraFracasso = true;
+      },
       complete: () => console.info('complete') 
     }));
-
   }
-
 }

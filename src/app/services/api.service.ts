@@ -47,14 +47,16 @@ export class ApiService {
   }
 
   postUser(usuario: any){
-    const token = this.authService.getAuthToken(); // esse post nao necessita de token pois é criacao de user
-    const httpHeaders = new HttpHeaders({'Content-type': 'application/json'});
+    const httpHeaders = new HttpHeaders({'Content-type': 'application/json'})
+    console.log(usuario)
     return this.http.post(this.baseUrl + 'accounts/registration/',{
-        "username": usuario.nome,
+        "username": usuario.username,
+        "first_name" : usuario.nome,
+        "last_name" : usuario.sobrenome,
         "email": usuario.email,
         "password1": usuario.senha,
         "password2": usuario.confirmaSenha,
-        "esporte" : usuario.esportePreferido,
+        "esportePreferido" : usuario.esportePreferido,
         "cpf" : usuario.cpf,
         "cep" : usuario.cep,
         "endereco" : usuario.endereco,

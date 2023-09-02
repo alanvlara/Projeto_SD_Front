@@ -1,1 +1,18 @@
-<div>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt nemo doloribus in, voluptate eveniet impedit, eum autem a illo voluptates fuga temporibus cumque architecto fugiat. Officiis tempora nobis reprehenderit illo?</div>
+<div class="container">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-12">
+      <div *ngIf="mostraSucesso" class="alert alert-success mt-5" role="alert">
+        <h4 class="alert-heading">Sucesso!</h4>
+        <p>Seu email foi verificado corretamente</p>
+        <hr>
+        <p class="mb-0">Aguarde e você será direcionado à tela inicial para fazer o seu primeiro login</p>
+      </div>
+      <div *ngIf="mostraFracasso" class="alert alert-danger mt-5" role="alert">
+        <h4 class="alert-heading">Erro!</h4>
+        <p>Aconteceu um erro na verificação do seu email</p>
+        <hr>
+        <p class="mb-0">Se ocorrer novamente esse erro, entre em contato com o nosso suporte</p>
+      </div>
+    </div>
+  </div>
+</div>

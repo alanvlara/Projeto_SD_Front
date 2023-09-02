@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'criar-atividade', component : CriaAtividadeComponent, canActivate: [AuthGuard]},
   { path: 'atividades', component : AtividadesComponent, canActivate: [AuthGuard]},
   {path: 'atividades/:id', component : AtividadeDetailComponent, canActivate: [AuthGuard]},
-  {path: 'confirm-email/:key', component : ConfirmEmailComponent},
+  {path: 'confirm-email/:key', component : ConfirmEmailComponent, canActivate: [HomeGuard] },
   { path: 'not-found', component : NotFoundComponent},
   { path: '**', redirectTo: 'not-found' }
 ];

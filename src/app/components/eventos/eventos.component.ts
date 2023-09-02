@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 export class EventosComponent {
   eventos: any[] = [];
   texto = '';
+  mostraQrCode = false;
   eventosPorPagina = 10; // Número de atividades por página
   paginaAtual = 1; // Página atual
 
@@ -24,6 +25,11 @@ export class EventosComponent {
       error: erro => console.log(erro),
       complete: () => console.info('complete') 
     }))
+  }
+
+  acessarQrCode(evento: any){
+    this.mostraQrCode = true;
+
   }
 
 }

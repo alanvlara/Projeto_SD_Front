@@ -44,6 +44,7 @@ ngOnInit(): void {
         next: (data: ApiResponse) => {
           // console.log(data)
           this.usuario = data;
+          console.log(this.usuario)
         },
         error: (error) => {
           console.log(error);
