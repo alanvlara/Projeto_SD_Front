@@ -17,6 +17,7 @@ export class CriaAtividadeComponent {
 
   mostraSucesso = false;
   mostraFracasso = false;
+  mostraFracasso2 = false;
   mostraEventoNaoEncontrado = false;
   photoUrl: any = null;
   // html5QrCode: Html5Qrcode | null = null; // Instância da biblioteca
@@ -25,6 +26,12 @@ export class CriaAtividadeComponent {
   cameraFechada = true;
 
   lerQrCode(): void {
+
+    this.mostraEventoNaoEncontrado = false;
+    this.mostraFracasso = false;
+    this.mostraFracasso2 = false;
+    this.mostraSucesso = false;
+
     this.cameraFechada = false;
     let qrCodeSuccessCallbackExecuted = false; // Flag para evitar chamada repetida do callback
     const readerContainer = document.getElementById("reader-container");
@@ -89,6 +96,11 @@ export class CriaAtividadeComponent {
 
   
   tirarFoto() {
+    this.mostraEventoNaoEncontrado = false;
+    this.mostraFracasso = false;
+    this.mostraFracasso2 = false;
+    this.mostraSucesso = false;
+
     this.cameraFechada = false;
     const constraints = {
       video: true,
@@ -249,43 +261,21 @@ export class CriaAtividadeComponent {
           return;
         }
       }
-  
+      let contador = 0;
       for (let i = 0; i < eventos.length; i++) {
         // console.log("veficiando os eventos")
         if (this.leituraQrCode.replaceAll('-', ' ') == eventos[i].titulo) {
-          console.log("achei evento")
-          const eventoEsporte = eventos[i].esporte;
-          this.postarAtividade(eventos[i]);      
-          this.mostraSucesso = true;
-          const user = new FormData();
-          const id = this.authService.getUserId()
-          of(this.api.getUserLogado().subscribe({
-            next: data => {
-              let total = data.totalEventos;
-              if(eventoEsporte == data.esportePreferido){
-                total +=1
-                console.log("vou somar mais um no total porque é teu esporte")
-              }
-              else{
-                console.log("vou somar nada porque não é teu esporte")
-              }
-              user.append("totalEventos", String(total))
-              user.append('is_active', 'true')
-              of(this.api.putUser(user, id).subscribe({
-                next: data => console.log(data),
-                error: error => console.log(error)
-              }))
-            },
-            error: error => console.log(error)
-          }))
-  
-          
+          console.log("achei evento");
+          this.postarAtividade(eventos[i]);   
           return;
         }
-        // else if(this.leituraQrCode.replaceAll('-', ' ') == eventos[i].titulo){
-        //   this.mostraEventoNaoEncontrado = true;
-        //   console.log("Evento não encontrado");
-        // }
+        else if (this.leituraQrCode.replaceAll('-', ' ') != eventos[i].titulo){
+          contador++;
+          console.log("Evento não encontrado");
+        }
+      }
+      if(contador == eventos.length){
+        this.mostraEventoNaoEncontrado = true;
       }
     });
   }
@@ -322,11 +312,11 @@ export class CriaAtividadeComponent {
     of(this.api.postAtividade(atividade).subscribe({
       next: data => {
           console.log(data);
-          // this.mostraSucesso = true;
+          this.mostraSucesso = true;
       },
       error: erro => {
           console.log(erro);
-          // this.mostraFracasso = true;
+          this.mostraFracasso2 = true;
       },
       complete: () => console.info('complete')
   }));

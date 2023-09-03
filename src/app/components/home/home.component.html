@@ -1,17 +1,35 @@
 <div class="container-fluid">
-    <div class="row ">
-      <div class="col-md-6 mt-5">
-        <div class="row justify-content-center">
-          <h2 class="text-center">Desporpato</h2>
-          <br>
-          <br>
-          <img class="image-fluid" style="width: 600px; height: 500px;" src="../../../assets/images/a white duck pl 1.png" alt="">
+    <div class="row">
+      <div class="col-md-6 mt-5 d-flex justify-content-center">
+        <!-- <div class="row justify-content-center">
+          <img class="img-fluid rounded" style="max-width: 500px; max-height: 500px;" src="../../../assets/images/a white duck pl 1.png" alt="">
+        </div> -->
+        <div id="carouselExample" class="carousel slide" style="width: 500px;">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="../../../assets/images/a white duck pl 1.png" class=" img-fluid" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="../../../assets/images/a white duck pl 1.png" class=" img-fluid" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="../../../assets/images/a white duck pl 1.png" class=" img-fluid" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
       <div class="col-md-6">
         <div class="row justify-content-center">
-          <div class="col-md-4 mt-5 mb-5">
-            <div class="card p-5 mt-5" style="width: 20rem;">
+          <div class="col-md-4 my-md-5 my-2">
+            <div class="card p-5 mx-auto" style="width: 20rem;">
               <form [formGroup]="form">
                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
                 <label for="email">E-mail</label>
