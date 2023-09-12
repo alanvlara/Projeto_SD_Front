@@ -13,7 +13,7 @@
         <h3>{{ atividadeSelecionada.titulo }}</h3>
         <p><strong>Evento:</strong> {{ atividadeSelecionada.evento.titulo }}</p>
         <p><strong>Esporte:</strong> {{ atividadeSelecionada.evento.esporte }}</p>
-        <p><strong>Data:</strong> {{ atividadeSelecionada.data | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Data:</strong> {{ atividadeSelecionada.evento.data | date: 'dd/MM/yyyy' }}</p>
         <button class="btn btn-success" (click)="gerarPDF(atividadeSelecionada.id)">Gerar Certificado</button>
       </div>
     </div>

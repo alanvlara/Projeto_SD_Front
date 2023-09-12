@@ -1,26 +1,40 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6 mt-5 d-flex justify-content-center">
-        <!-- <div class="row justify-content-center">
-          <img class="img-fluid rounded" style="max-width: 500px; max-height: 500px;" src="../../../assets/images/a white duck pl 1.png" alt="">
-        </div> -->
-        <div id="carouselExample" class="carousel slide" style="width: 500px;">
+      <div class=" col-md-6 d-flex justify-content-end vh-md-100">
+        <div data-bs-ride="carousel" id="carouselExampleIndicators" class="carousel slide  mt-md-5 mt-2 mb-3" style=" max-width: 570px;" data-bs-interval="4000">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="../../../assets/images/a white duck pl 1.png" class=" img-fluid" alt="...">
+            <div class="carousel-item active" style="max-width: 100%; height: auto;">
+              <img src="../../../assets/images/a white duck pl 1.png" class="img-fluid rounded" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: black;">First slide label</h5>
+                <p style="color: black;"><strong>Some representative placeholder content for the first slide.</strong></p>
+              </div>
             </div>
-            <div class="carousel-item">
-              <img src="../../../assets/images/a white duck pl 1.png" class=" img-fluid" alt="...">
+            <div class="carousel-item" style="max-width: 100%; height: auto;">
+              <img src="../../../assets/images/pato volei.jpg" class="img-fluid rounded" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: black;">First slide label</h5>
+                <p style="color: black;"><strong>Some representative placeholder content for the first slide.</strong></p>
+              </div>
             </div>
-            <div class="carousel-item">
-              <img src="../../../assets/images/a white duck pl 1.png" class=" img-fluid" alt="...">
+            <div class="carousel-item" style="max-width: 100%; height: auto;">
+              <img src="../../../assets/images/pato corrida.jpg" class="img-fluid rounded" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: black;">First slide label</h5>
+                <p style="color: black;"><strong>Some representative placeholder content for the first slide.</strong></p>
+              </div>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -28,8 +42,8 @@
       </div>
       <div class="col-md-6">
         <div class="row justify-content-center">
-          <div class="col-md-4 my-md-5 my-2">
-            <div class="card p-5 mx-auto" style="width: 20rem;">
+          <div class="col-md-4 mt-md-5 mt-2">
+            <div class="card p-5 mx-auto mb-3" style="width: 22rem; height: auto;">
               <form [formGroup]="form">
                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
                 <label for="email">E-mail</label>
@@ -45,6 +59,8 @@
                 <button [disabled]="entrarClicado" id="signIn" class="btn btn-mg" (click)="entrar()">Entrar</button>
               </form>
             </div>
+            <div class="row mx-auto mb-3" style="width: 22rem"><div class="text-center">Quack para um estilo de vida saudável - 
+              Seja como nosso pato branco, mergulhe nos esportes!</div></div>
           </div>
         </div>
       </div>

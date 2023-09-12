@@ -21,10 +21,6 @@
         </li>
         <li *ngIf="!mostraHomeBotao">
           <a id="eventos" role="button"  class="nav-link active rounded" routerLink="/eventos">Eventos</a>
-        </li>
-        <li *ngIf="!mostraHomeBotao">
-          <a id="meus-eventos" role="button"  class="nav-link active rounded" routerLink="/meus-eventos">Meus Eventos</a>
-        </li>
         <li *ngIf="!mostraHomeBotao">
           <a id="eventos" role="button"  class="nav-link active rounded" routerLink="/atividades">Atividades</a>
         </li>
@@ -45,4 +41,8 @@
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="vh-100" [ngClass]="darkMode ? 'bg-dark' : 'bg-light'">
+  <router-outlet></router-outlet>
+</div>
+
+

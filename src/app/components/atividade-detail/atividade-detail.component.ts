@@ -27,7 +27,7 @@ export class AtividadeDetailComponent {
     'id': 0,
     'titulo':'',
     'usuario': {'first_name':'', 'last_name':''},
-    'evento': {'titulo':'', 'esporte':''},
+    'evento': {'titulo':'', 'esporte':'', 'data': ''},
     'cidade':'',
     'data':'',
     'foto':''

@@ -213,7 +213,7 @@ export class CriaAtividadeComponent {
           video.remove();
           tirarFotoBtn.remove();
           buttonsContainer.remove();
-          this.cameraFechada = false;
+          this.cameraFechada = true;
         });
   
         const cameraContainer = document.createElement('div')!;

@@ -22,20 +22,16 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     const loggedIn = localStorage.getItem('loggedIn') === 'true';
     this.authService.loggedInStatus.next(loggedIn);
     this.authService.getLoggedInStatus().subscribe(loggedIn => {
       this.mostraEventosBotao = loggedIn;
       this.mostraHomeBotao = !loggedIn;
-      // this.cdr.detectChanges();
     });
-
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-bs-theme', savedTheme);
-    this.darkMode = savedTheme === 'dark';
-  }
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      this.darkMode = savedTheme === 'dark';
+    }
   }
 
   toggleTheme() {
