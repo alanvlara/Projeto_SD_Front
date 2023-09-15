@@ -16,6 +16,7 @@ import { CriaEventoComponent } from './components/cria-evento/cria-evento.compon
 // import { MeusEventosComponent } from './components/meus-eventos/meus-eventos.component';
 import { CriaAtividadeComponent } from './components/cria-atividade/cria-atividade.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
+import { PoliticaComponent } from './components/politica/politica.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'eventos', component : EventosComponent, canActivate: [AuthGuard] },
   // {path: 'meus-eventos', component : MeusEventosComponent, canActivate: [AuthGuard] },
   { path: 'sobre', component : SobreComponent},
+  { path: 'politica', component : PoliticaComponent},
   { path: 'configuracoes', component : ConfiguracoesComponent, canActivate: [AuthGuard]},
   { path: 'criar-atividade', component : CriaAtividadeComponent, canActivate: [AuthGuard]},
   { path: 'atividades', component : AtividadesComponent, canActivate: [AuthGuard]},

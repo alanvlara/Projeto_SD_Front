@@ -19,6 +19,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { SobreComponent } from './components/sobre/sobre.component';
 import { RankingComponent } from './components/ranking/ranking.component';
+import { PoliticaComponent } from './components/politica/politica.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { RankingComponent } from './components/ranking/ranking.component';
     PerfilComponent,
     SobreComponent,
     RankingComponent,
+    PoliticaComponent,
     
   ],
   imports: [

@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormGroup } from "@angular/forms";
 
 
 export class CustomValidators {
@@ -22,15 +22,6 @@ export class CustomValidators {
         return !passwordValid ? {forcaSenha:true}: null;
     }
 
-    // static senhasIguais(control: AbstractControl): { [key: string]: boolean } | null {
-    //     let senha = control.get('senha');
-    //     let confirmaSenha = control.get('confirmaSenha');
-
-    //     if (senha && confirmaSenha && senha?.value != confirmaSenha?.value) return {senhasIguais: true};
-                
-    //     return null;
-    // }
-
     static cpf(control: AbstractControl): { [key: string]: boolean } | null {
         if (!control.value) {
             return null;
@@ -40,7 +31,6 @@ export class CustomValidators {
 
         let cpf = valor;
         cpf = cpf.replace(/[^\d]+/g, '');
-        // if(cpf == '') return {cpf}; 
         // Elimina CPFs invalidos conhecidos    
         if (cpf.length != 11 ||
             cpf == "00000000000" ||

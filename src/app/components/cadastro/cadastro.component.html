@@ -78,9 +78,7 @@
                 <ul
                     *ngIf="form.get('confirmaSenha')?.invalid && (form.get('confirmaSenha')?.touched || form.get('confirmaSenha')?.dirty)">
                     <li *ngIf="form.get('confirmaSenha')?.hasError('required')">Campo obrigatório</li>
-                    <li *ngIf="form.get('confirmaSenha')?.hasError('maxlength')">Digite no máximo 20 dígitos</li>
-                    <li *ngIf="form.get('confirmaSenha')?.hasError('minlength')">Digite no mínimo 4 digitos</li>
-                    <li *ngIf="form.get('confirmaSenha')?.hasError('senhasIguais')">As senhas não conferem</li>
+                    <li *ngIf="form.get('confirmaSenha')?.hasError('senhasDiferentes')">As senhas não conferem</li>
                 </ul>
             </div>
         </div>
@@ -179,12 +177,23 @@
                 </ul>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-4 mb-3">
+                <label for="politica" class="me-1">Li e Concordo com a <a target="blank" href="/politica">Politica de Privacidade</a></label>
+                <input type="checkbox" formControlName="politica"[ngClass]="{
+                    'is-valid': form.get('politica')?.valid,
+                    'is-invalid': form.get('politica')?.invalid && (form.get('politica')?.touched || form.get('politica')?.dirty)
+                }">
+                <ul *ngIf="form.get('politica')?.invalid && (form.get('politica')?.touched || form.get('politica')?.dirty)">
+                    <li *ngIf="form.get('politica')?.hasError('required')">Campo obrigatório</li>
+                </ul>
+            </div>
+        </div>
     </form>
 
     <div class="row">
         <div class="col mb-1">
-            <button class="btn btn-success" (click)="salvar()">Salvar</button>
+            <button class="btn btn-success" (click)="salvar() ">Salvar</button>
             <a class="btn btn-danger" href="/home">Cancelar</a>
         </div>
         <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">

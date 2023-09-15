@@ -23,23 +23,28 @@ export class CadastroComponent {
   ) { }
 
   ngOnInit(): void {
-      this.form = this.formBuilder.group({
-          username: ['', Validators.required],
-          nome: ['', Validators.required],
-          sobrenome: ['', Validators.required],
-          email: ['', [Validators.required, Validators.email]], // { email: true }
-          senha: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4), CustomValidators.forcaSenha]],
-          confirmaSenha: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
-          esportePreferido: ['', [Validators.required]],
-          cpf: ['', [Validators.required, CustomValidators.cpf]],
-          cep: ['', [Validators.required]],
-          endereco: ['', [Validators.required]],
-          cidade: ['', [Validators.required]],
-          estado: ['', [Validators.required]]
-      });
+    this.form = this.formBuilder.group({
+        username: ['', Validators.required],
+        nome: ['', Validators.required],
+        sobrenome: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        senha: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(4), CustomValidators.forcaSenha]],
+        confirmaSenha: ['', [Validators.required]],
+        esportePreferido: ['', [Validators.required]],
+        cpf: ['', [Validators.required, CustomValidators.cpf]],
+        cep: ['', [Validators.required]],
+        endereco: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
+        estado: ['', [Validators.required]], 
+        politica: ['', [Validators.required]],
+    });
 
+    // Observador para o campo 'confirmaSenha'
+    this.form.get('confirmaSenha')?.valueChanges.subscribe(() => {
+        this.form.get('confirmaSenha')?.updateValueAndValidity();
+    });
 
-      this.subscribeForms();
+    this.subscribeForms();
 }
 
 
@@ -66,9 +71,21 @@ export class CadastroComponent {
                   })
               }
 
-
           });
 
+          this.form.get('confirmaSenha')?.valueChanges.subscribe(() => {
+        const senha = this.form.get('senha')?.value;
+        const confirmaSenha = this.form.get('confirmaSenha')?.value;
+
+        if (senha !== confirmaSenha) {
+            // Define um erro personalizado no controle 'confirmaSenha'
+            this.form.get('confirmaSenha')?.setErrors({ senhasDiferentes: true });
+        } else {
+            // Limpa os erros se as senhas forem iguais
+            this.form.get('confirmaSenha')?.setErrors(null);
+        }
+    });
+          
 
   }
   

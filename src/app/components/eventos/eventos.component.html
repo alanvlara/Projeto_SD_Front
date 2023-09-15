@@ -19,7 +19,29 @@
               <img src="{{evento.value.foto}}" class="rounded img-fluid mb-3 mb-md-0" style="width: 100px; height: 60px;" />
               <div class="flex-grow-1 mx-md-3 d-md-inline">
                 <h5 class="ms-md-5" style="width: 100px;">{{ evento.value.titulo}}</h5>
-                <button *ngIf="evento.value.qr_code" id="qr_code" class="btn btn-sm ms-md-4" (click)="acessarQrCode(evento)">Acessar Qr Code</button>
+
+                <!-- Button trigger modal -->
+<button *ngIf="evento.value.qr_code" id="qr_code" type="button" class="btn btn-sm ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Acessar Qr Code
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Qr code do evento {{evento.value.titulo}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body mx-auto">
+        <img src="{{evento.value.qr_code}}" alt="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
                 <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.esporte}}</small>
                 <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.data | date: 'dd/MM/YYYY'}}</small>
                 <small class="d-md-inline">Saiba mais em:&nbsp;&nbsp;&nbsp;&nbsp;<a style="width: 600px;" class="flex-column" href="{{evento.value.link}}">{{ evento.value.link}}</a></small>
