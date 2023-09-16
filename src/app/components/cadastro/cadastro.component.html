@@ -1,4 +1,4 @@
-<div class="container-fluid mt-3">
+<div class="container-fluid py-md-3">
     <h2>Preencha os campos</h2>
     <form [formGroup]="form">
         <div class="row mb-3">
@@ -173,7 +173,6 @@
                 }">
                 <ul *ngIf="form.get('estado')?.invalid && (form.get('estado')?.touched || form.get('estado')?.dirty)">
                     <li *ngIf="form.get('estado')?.hasError('required')">Campo obrigatório</li>
-                    <!-- <li *ngIf="form.get('cidade')?.hasError('cidade')">esportePreferido inválido</li> -->
                 </ul>
             </div>
         </div>

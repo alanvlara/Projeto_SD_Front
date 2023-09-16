@@ -28,17 +28,25 @@ export class AppComponent implements OnInit {
       this.mostraEventosBotao = loggedIn;
       this.mostraHomeBotao = !loggedIn;
     });
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      this.darkMode = savedTheme === 'dark';
-    }
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    this.setTheme(savedTheme); // Chama a função para configurar o tema
+  } else {
+    // Define o tema padrão caso não haja um tema armazenado
+    this.setTheme('light'); // Ou 'dark', dependendo do seu tema padrão
+  }
+  }
+
+  private setTheme(theme: string) {
+    document.documentElement.setAttribute('data-bs-theme', theme);
+    localStorage.setItem('theme', theme); // Salva o tema no armazenamento local
   }
 
   toggleTheme() {
     this.darkMode = !this.darkMode;
     const theme = this.darkMode ? 'dark' : 'light';
     document.documentElement.setAttribute('data-bs-theme', theme);
-    localStorage.setItem('theme', theme); // Salva o tema no armazenamento local
+    this.setTheme(theme); // Salva o tema no armazenamento local
   }
 
   navigateToProfile() {

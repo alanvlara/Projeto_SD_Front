@@ -9,10 +9,10 @@
     background-color: rgb(118, 11, 139);
 }
 
-#qr_code{
+.qr_code{
     background-color: #cb3dd8; 
 }
-#qr_code:hover{
+.qr_code:hover{
     background-color: blue;
 }
 

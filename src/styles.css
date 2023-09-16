@@ -1,12 +1,1 @@
 /* You can add global styles to this file, and also import other style files */
-/* Tema claro */
-.bg-light-theme {
-    background-color: #ffffff; /* Define a cor de fundo para o tema claro */
-    color: #000000; /* Define a cor do texto para o tema claro */
-  }
-  
-  /* Tema escuro */
-.bg-dark-theme {
-    background-color: #000000; /* Define a cor de fundo para o tema escuro */
-    color: #ffffff; /* Define a cor do texto para o tema escuro */
-  }

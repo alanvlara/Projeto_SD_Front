@@ -25,6 +25,11 @@ export class PerfilComponent  {
     'foto' : '',
     'esportePreferido': '',
   }
+  atividades = [];
+  totalAtividades = 0;
+  posicao = 0;
+  pessoas: any[] = [];
+  userLogado: any;
   
 
   constructor(
@@ -42,9 +47,8 @@ ngOnInit(): void {
     if (loggedIn) {
       of(this.api.getUserLogado().subscribe({
         next: (data: ApiResponse) => {
-          // console.log(data)
           this.usuario = data;
-          console.log(this.usuario)
+          this.userLogado = data;
         },
         error: (error) => {
           console.log(error);
@@ -58,43 +62,23 @@ ngOnInit(): void {
     }
   });
 
+  
+  forkJoin([
+    this.api.getAtividades(),
+    this.api.getAllUsers(),
+  ]).subscribe(([atividades, users]) => {
+    this.atividades = atividades;
+    this.totalAtividades = this.atividades.length;
+    
+    this.pessoas = users.filter((user:any) => user.esportePreferido === this.userLogado.esportePreferido);
+    this.pessoas.sort((a, b) => b.totalEventos - a.totalEventos);
+
+    this.posicao = this.obterIndiceUsuarioLogado(this.pessoas, this.userLogado);
+  });
     }  
 
-// pegarLocalizacao = (lat: number, lon: number) => {
-//   fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
-//       .then(resposta => resposta.json())
-//       .then(dados => {
-//         console.log(dados)
-//         this.form.get('estado')?.setValue(dados.address.state, {
-//           emitEvent: false // pra não cair no maximum call stack excedeed
-//       })
-//         if(dados.address.city){
-//         this.form.get('cidade')?.setValue(dados.address.city, {
-//           emitEvent: false // pra não cair no maximum call stack excedeed
-//       })
-//       }
-//       else{
-//         this.form.get('cidade')?.setValue(dados.address.town, {
-//           emitEvent: false // pra não cair no maximum call stack excedeed
-//       })
-//       }
-//       })
-//       .catch(erro => console.log('Erro: ', erro));
-
-      
-// };
-
-// iniciarLocalizacao = () => {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition((position) => {
-//       const latitude = position.coords.latitude;
-//       const longitude = position.coords.longitude;
-//       this.pegarLocalizacao(latitude, longitude);
-//     });
-//   }
-// }
-
-
-
-
+    obterIndiceUsuarioLogado(pessoas: any[], userLogado: any): number {
+      console.log(pessoas, userLogado);
+      return pessoas.findIndex(pessoa => pessoa.id === userLogado.pk);
+    }
 }

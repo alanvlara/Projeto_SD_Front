@@ -1,3 +1,10 @@
 .botao{
     background-color: green;
 }
+
+#criar-atividade{
+    background-color: #cb3dd8; 
+}
+#criar-atividade:hover{
+    background-color: rgb(118, 11, 139);
+}

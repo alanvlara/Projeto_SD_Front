@@ -37,7 +37,6 @@ export class RankingComponent {
           }
         }
         this.pessoas.sort((a, b) => b.totalEventos - a.totalEventos);
-        console.log(this.pessoas)
       },
     error: error => console.error(error),
     complete: () => console.log("complete")
