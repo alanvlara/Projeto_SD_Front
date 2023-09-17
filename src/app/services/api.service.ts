@@ -17,7 +17,7 @@ export class ApiService {
     ) { }
 
   
-  baseUrl = 'http://localhost:8000/';
+  baseUrl = 'https://web-production-043b.up.railway.app/';
 
 
   postLoginUser(usuario: any){
