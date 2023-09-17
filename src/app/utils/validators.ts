@@ -2,6 +2,13 @@ import { AbstractControl } from "@angular/forms";
 
 
 export class CustomValidators {
+
+    static politicaValidator(control: AbstractControl): { [key: string]: boolean } | null {
+        if (!control.value) {
+          return { politicaNaoMarcada: true };
+        }
+        return null;
+      }
         
     static forcaSenha(control: AbstractControl): { [key: string]: boolean } | null {
         const value = control.value

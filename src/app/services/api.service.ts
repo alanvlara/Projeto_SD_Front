@@ -61,7 +61,9 @@ export class ApiService {
         "cep" : usuario.cep,
         "endereco" : usuario.endereco,
         "cidade" : usuario.cidade,
-        "estado" : usuario.estado
+        "estado" : usuario.estado,
+        "representa" : usuario.representa,
+        "criador" : usuario.criador
     }, {headers: httpHeaders});
   }
 
@@ -77,6 +79,12 @@ export class ApiService {
     return this.http.get(this.baseUrl + '/evento/eventos',
     {headers: httpHeaders});
   };
+
+  getEventoById(id: string|null){
+    const token = localStorage.getItem('token');
+    const httpHeaders = new HttpHeaders({'Content-type': 'application/json', Authorization: `Bearer ${token}`});
+    return this.http.get<any>(this.baseUrl + 'evento/eventos/'+id+'/', {headers: httpHeaders})
+  }
 
   getUserLogado(): Observable<ApiResponse> {
     const token = localStorage.getItem('token');

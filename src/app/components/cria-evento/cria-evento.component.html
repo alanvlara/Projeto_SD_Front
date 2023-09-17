@@ -1,4 +1,4 @@
-<div *ngIf="!qrCodeCriado" class="container-fluid py-md-3">
+<div  class="container py-md-3 mb-2">
     <h2 class="">Preencha os campos do Evento</h2>
     <form [formGroup]="form">
         <div class="row mb-3">
@@ -43,50 +43,42 @@
         <div class="row mb-3">
             <div class="col-3">
                 <label for="esporte">Esporte</label>
-                <input placeholder="Ex: Corrida" id="esporte" type="url" class="form-control" formControlName="esporte"
-                    [ngClass]="{
+                <select data-dropup-auto="false" class="form-select form-control" aria-label="Default select example"  formControlName="esporte"
+                     [ngClass]="{
                     'is-valid': form.get('esporte')?.valid,
                     'is-invalid': form.get('esporte')?.invalid && (form.get('esporte')?.touched || form.get('esporte')?.dirty)
                 }">
+                    <option selected>Clique para selecionar</option>
+                    <option value="Atletismo">Atletismo</option>
+                    <option value="Badminton">Badminton</option>
+                    <option value="Basquete">Basquete</option>
+                    <option value="Corrida">Corrida</option>
+                    <option value="Dança">Dança</option>
+                    <option value="Futebol">Futebol</option>
+                    <option value="Futsal">Futsal</option>
+                    <option value="Ginástica">Ginástica</option>
+                    <option value="Handeball">Handeball</option>
+                    <option value="Judô">Judô</option>
+                    <option value="Natação">Natação</option>
+                    <option value="Passeio">Passeio</option>
+                    <option value="Tênis de Campo">Tênis de Campo</option>
+                    <option value="Tênis de Mesa">Tênis de Mesa</option>
+                    <option value="Torneio de Cheerleaders">Torneio de Cheerleaders</option>
+                    <option value="Vôlei">Vôlei</option>
+                    <option value="Xadrez">Xadrez</option>
+                </select>
                 <ul
-                    *ngIf="(form.get('esporte')?.invalid && (form.get('esporte')?.touched || form.get('esporte')?.dirty))">
-                    <li>Campo obrigatório</li>
-                </ul>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-3">
-                <label for="foto">Foto</label>
-                <input #fotoInput (change)="onFileSelected($event)" accept="image/*" placeholder="" id="foto"
-                    type="file" class="form-control" formControlName="foto" [ngClass]="{
-                'is-valid': form.get('foto')?.valid,
-                'is-invalid': form.get('foto')?.invalid && (form.get('foto')?.touched || form.get('foto')?.dirty)
-            }">
-                <ul *ngIf="(form.get('foto')?.invalid && (form.get('foto')?.touched || form.get('foto')?.dirty))">
-                    <li>Campo obrigatório</li>
+                    *ngIf="form.get('esporte')?.invalid && (form.get('esporte')?.touched || form.get('esporte')?.dirty)">
+                    <li *ngIf="form.get('esporte')?.hasError('required')">Campo obrigatório</li>
                 </ul>
             </div>
         </div>
         <button [disabled]="criarClicado" id="criar" class="btn btn-mg" (click)="criar()">Criar</button>
-        <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">
-            Evento Cadastrado, aguarde pelo QrCode do evento
+        <div *ngIf="mostraSucesso" class="alert alert-success mt-2" role="alert">
+            Evento Cadastrado, aguarde e você sera direcionado para a página do evento.
         </div>
-        <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+        <div *ngIf="mostraFracasso" class="alert alert-danger mt-2" role="alert">
             Erro ao cadastrar o evento
         </div>
     </form>
 </div>
-
-<div *ngIf="qrCodeCriado" class="container-fluid mt-3">
-    <div class="row mb-3">
-      <div class="col-12 d-flex flex-column align-items-center">
-        <div class="text-center mb-3">
-          O QrCode do seu evento foi gerado, guarde-o para confirmar a presença dos participantes no dia.
-          Aviso: Basta o participante ler esse Qrcode na conta dele e a presença dele no evento estará garantida.
-          Caso precise desse Qrcode basta acessar o menu "meus eventos".
-        </div>
-        <br>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?data={{nomeQrCode}}&size=150x150" alt="" title="" />
-      </div>
-    </div>
-  </div>

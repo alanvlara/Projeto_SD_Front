@@ -22,7 +22,6 @@ export class AtividadeDetailComponent {
     private http : HttpClient
     
   ){}
-  mostrapdf = false;
   atividadeSelecionada = {
     'id': 0,
     'titulo':'',
@@ -42,50 +41,6 @@ export class AtividadeDetailComponent {
     }))
   });
   }
-
-  //Apenas com jspdf sem html2cnavas/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // gerarPDF() {
-  //   const doc = new jsPDF();
-
-  //   const dataFormatada = formatDate(this.atividadeSelecionada.data, 'dd/MM/yyyy', 'pt')
-    
-  //   // Defina o conteúdo do PDF com os dados da atividade
-  //   const content = `
-  //     Evento: ${this.atividadeSelecionada.evento.titulo}
-  //     Esporte: ${this.atividadeSelecionada.evento.esporte}
-  //     Data:   ${dataFormatada}
-  //   `;
-    
-  //   // Adicione o conteúdo ao PDF
-  //   doc.text(content, 10, 10);
-    
-  //   // Salve o PDF
-  //   doc.save('certificado.pdf');
-  // }
-
-  //Com html2canvas/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // gerarPDF() {
-  //   this.mostrapdf = true;
-  //   const content = document.getElementById('conteudo');
-
-  //   // Configurar a instância do jsPDF com orientação paisagem (landscape)
-  //   const pdf = new jsPDF('landscape');
-    
-  //   if(content){
-  //     html2canvas(content).then((canvas) => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       const imgProps = pdf.getImageProperties(imgData);
-  //       const pdfWidth = pdf.internal.pageSize.getWidth();
-  //       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-  //       const x = (pdfWidth - pdfWidth/2)
-  //       const y = (pdf.internal.pageSize.getHeight() - pdfHeight) / 2;
-    
-  //       pdf.addImage(imgData, 'PNG', x, y, pdfWidth, pdfHeight);
-  //       pdf.save('cerificado.pdf');
-  //   });
-  //   }
-  // }
 
   //Buscando no backend ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   gerarPDF(atividadeId: number) {

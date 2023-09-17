@@ -1,64 +1,55 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col-md-4 mt-md-3">
+    <div class="col-md-4 mt-3">
       <label for="filtroEvento" class="form-label me-2">Filtrar Eventos:</label>
       <select [(ngModel)]="filtro" name="filtroEvento" id="filtroEvento" class="form-select-sm">
         <option value="futuros">Futuros</option>
         <option value="passados">Passados</option>
         <option value="admin">Admin</option>
       </select>
-    </div>  
+    </div>
     <div class="col-md-8 text-end mt-md-3">
-      <button routerLink="/criar-evento" id="criar-evento" class="btn btn-mg ms-md-2">Criar Evento</button>
+      <button *ngIf="criador" routerLink="/criar-evento" id="criar-evento" class="btn btn-mg ms-md-2">Criar
+        Evento</button>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-md-12">
       <h2 class="text-center" style="color: rgb(118, 11, 139);">Eventos</h2>
       <ul class="list-group">
-        <ng-container *ngFor="let evento of eventos | keyvalue">
-          <li *ngIf="(filtro === 'futuros' && compareDates(evento.value.data, hoje()) > 0) ||
-            (filtro === 'passados' && compareDates(evento.value.data, hoje()) < 0) ||
-            (filtro === 'admin' && evento.value.qr_code)" class="list-group-item lista-eventos">
-            <div class="d-flex flex-column flex-md-row align-items-center">
-              <img src="{{evento.value.foto}}" class="rounded img-fluid mb-3 mb-md-0"
-                style="width: 100px; height: 60px;" />
-              <div class="flex-grow-1 mx-md-3 d-md-inline">
-                <h5 class="ms-md-5" style="width: 100px;">{{ evento.value.titulo}}</h5>
-
-                <!-- Button trigger modal -->
-                <button *ngIf="evento.value.qr_code" type="button" class="btn btn-sm ms-4 qr_code"
-                  data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal-' + evento.key">
-                  Acessar Qr Code
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" [id]="'exampleModal-' + evento.key" tabindex="-1"
-                  aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Qr code do evento {{evento.value.titulo}}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body mx-auto">
-                        <img src="{{evento.value.qr_code}}" alt="">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
+        <ng-container
+          *ngFor="let evento of eventos.slice().reverse().slice((paginaAtual - 1) * eventosPorPagina, paginaAtual * eventosPorPagina)|keyvalue">
+          <li *ngIf="(filtro === 'futuros' && compareDates(evento.value.data, getCurrentDateInBrasilia()) >= 0) ||
+            (filtro === 'passados' && compareDates(evento.value.data, getCurrentDateInBrasilia()) < 0) ||
+            (filtro === 'admin' && evento.value.qr_code)" class="list-group">
+            <a role="banner" class="list-group-item list-group-item-action lista-eventos"
+              [routerLink]="['/eventos', evento.value.id]">
+              <div class="row d-flex d-inline">
+                <h5 class="col-md-4 d-flex justify-content-center">{{ evento.value.titulo }}</h5>
+                <div class="col-md-2 d-flex justify-content-center">
+                  <small class="mb-2">{{ evento.value.esporte }}</small>
                 </div>
-                <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.esporte}}</small>
-                <small style="width: 100px;" class="d-block m-md-5 d-md-inline">{{ evento.value.data | date:
-                  'dd/MM/YYYY'}}</small>
-                <small class="d-md-inline">Saiba mais em:&nbsp;&nbsp;&nbsp;&nbsp;<a style="width: 600px;"
-                    class="flex-column" href="{{evento.value.link}}">{{ evento.value.link}}</a></small>
+                <div class="col-md-2 d-flex justify-content-center">
+                  <small class="mb-2">{{ evento.value.data | date: 'dd/MM/YYYY' }}</small>
+                </div>
+                <div class="col-4 d-flex justify-content-start">
+                  <small class="word-wrap-break">
+                    Saiba mais em: <a href="{{evento.value.link}}">{{ evento.value.link }}</a>
+                  </small>
+                </div>
               </div>
-            </div>
+            </a>
           </li>
         </ng-container>
       </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center mt-3">
+      <button class="btn btn-primary me-2" (click)="paginaAtual = paginaAtual - 1"
+        [disabled]="paginaAtual === 1">Anterior</button>
+      <button class="btn btn-primary" (click)="paginaAtual = paginaAtual + 1"
+        [disabled]="paginaAtual * eventosPorPagina >= eventos.length">Próxima</button>
     </div>
   </div>
 </div>

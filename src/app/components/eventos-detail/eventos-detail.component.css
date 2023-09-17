@@ -1,0 +1,6 @@
+.qr_code{
+    background-color: #cb3dd8; 
+}
+.qr_code:hover{
+    background-color: blue;
+}

@@ -13,15 +13,22 @@ export class EventosComponent {
   eventosPassados: any[] = [];
   eventosAdmin: any[] = [];
   texto = '';
-  mostraQrCode = false;
-  eventosPorPagina = 10; // Número de atividades por página
+  eventosPorPagina = 10; // Número de eventos por página
   paginaAtual = 1; // Página atual
   filtro: string = 'futuros';
+  criador = false;
 
 
   constructor(private api:ApiService){
     this.getEventos();
     this.filtrarEventos();
+  }
+
+  ngOnInit(){
+    of(this.api.getUserLogado().subscribe({
+      next: data => this.criador = data.criador,
+      error: error => console.log(error)
+    }))
   }
 
   filtrarEventos() {
@@ -48,8 +55,14 @@ export class EventosComponent {
     }))
   }
 
-  hoje(): Date {
-    return new Date(); // Isso retorna a data e hora atual
+  getCurrentDateInBrasilia(): Date {
+    // Crie uma nova data
+    const now = new Date();
+
+    // Defina o fuso horário como Brasília
+    now.setUTCHours(-3);
+
+    return now;
   }
 
   compareDates(dateString: string, comparisonDate: Date): number {

@@ -4,7 +4,7 @@ import { CustomValidators } from 'src/app/utils/validators';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { of, filter, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-cadastro',
@@ -15,6 +15,8 @@ export class CadastroComponent {
   form!: FormGroup;
   mostraSucesso = false;
   mostraFracasso = false;
+  validarSenhas = true;
+  isCriador = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -36,12 +38,9 @@ export class CadastroComponent {
         endereco: ['', [Validators.required]],
         cidade: ['', [Validators.required]],
         estado: ['', [Validators.required]], 
-        politica: ['', [Validators.required]],
-    });
-
-    // Observador para o campo 'confirmaSenha'
-    this.form.get('confirmaSenha')?.valueChanges.subscribe(() => {
-        this.form.get('confirmaSenha')?.updateValueAndValidity();
+        politica: ['', [Validators.required, CustomValidators.politicaValidator]],
+        criador: [''],
+        representa: ['', []]
     });
 
     this.subscribeForms();
@@ -73,24 +72,45 @@ export class CadastroComponent {
 
           });
 
+          this.form.get('senha')?.valueChanges.subscribe(() => {
+            if (this.validarSenhas) {
+              this.validarSenhasIguais();
+            }
+          });
+      
           this.form.get('confirmaSenha')?.valueChanges.subscribe(() => {
-        const senha = this.form.get('senha')?.value;
-        const confirmaSenha = this.form.get('confirmaSenha')?.value;
-
-        if (senha !== confirmaSenha) {
-            // Define um erro personalizado no controle 'confirmaSenha'
-            this.form.get('confirmaSenha')?.setErrors({ senhasDiferentes: true });
-        } else {
-            // Limpa os erros se as senhas forem iguais
-            this.form.get('confirmaSenha')?.setErrors(null);
-        }
-    });
+            if (this.validarSenhas) {
+              this.validarSenhasIguais();
+            }
+          });
+          
           
 
   }
+
+  validarSenhasIguais(): void {
+    const senha = this.form.get('senha')?.value;
+    const confirmaSenha = this.form.get('confirmaSenha')?.value;
+
+    if (senha !== confirmaSenha || confirmaSenha ==='') {
+      // Define um erro personalizado no controle 'confirmaSenha'
+      this.form.get('confirmaSenha')?.setErrors({ senhasDiferentes: true });
+    } else {
+      // Limpa os erros se as senhas forem iguais
+      this.form.get('confirmaSenha')?.setErrors(null);
+    }
+  }
+
+  onCriadorChange(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.isCriador = isChecked;
+}
   
 
   salvar(): void {
+
+    this.mostraFracasso = false;
+    this.mostraSucesso = false;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -98,12 +118,6 @@ export class CadastroComponent {
   
     const usuario = {
       ...this.form.getRawValue(),
-      esportePreferido: this.form.get('esportePreferido')?.value,
-      cpf: this.form.get('cpf')?.value,
-      cep: this.form.get('cep')?.value,
-      endereco: this.form.get('endereco')?.value,
-      cidade: this.form.get('cidade')?.value,
-      estado: this.form.get('estado')?.value,
     };
   
     console.log(usuario);
@@ -111,10 +125,11 @@ export class CadastroComponent {
     of(this.api.postUser(usuario).subscribe({
       next: data => {
         console.log(data);
-        this.mostraSucesso = true;
+        this.mostraSucesso = true;  
+        setTimeout(()=>this.router.navigate(['/home']), 4000);
       },
       error: erro => {
-        console.log(erro);
+        console.log(erro);  
         this.mostraFracasso = true;
       },
       complete: () => console.info('complete') 

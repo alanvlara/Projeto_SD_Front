@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-center" style="color: rgb(118, 11, 139);">Detalhes da evento</h2>
+      </div>
+    </div>
+  
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <h3>{{ eventoSelecionado.titulo }}</h3>
+        <p><strong>Evento:</strong> {{ eventoSelecionado.titulo }}</p>
+        <p><strong>Esporte:</strong> {{ eventoSelecionado.esporte }}</p>
+        <p><strong>Data:</strong> {{ eventoSelecionado.data | date: 'dd/MM/yyyy' }}</p>
+        <button *ngIf="eventoSelecionado.qr_code" class="btn btn-success" (click)="verGrafico()">Ver gráfico de participantes</button>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-4 d-flex">
+        <button *ngIf="eventoSelecionado.qr_code" type="button" class="btn btn-sm qr_code" data-bs-toggle="modal" data-bs-target="#qrCodeModal">
+          Acessar Qr Code
+        </button>
+      </div>
+    </div>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Qr code do evento {{eventoSelecionado.titulo}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body mx-auto">
+            <img src="{{eventoSelecionado.qr_code}}" alt="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <a routerLink="/eventos" class="btn btn-primary">Voltar para Lista</a>
+      </div>
+    </div>
+  </div>
+  

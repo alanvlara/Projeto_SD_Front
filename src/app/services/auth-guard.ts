@@ -18,17 +18,17 @@ export class AuthGuard {
   canActivate(): Observable<boolean> {
     if (this.authService.isLoggedIn()) {
       const authToken = this.authService.getAuthToken();
-      console.log('Tenho token: ', authToken);
+      // console.log('Tenho token: ', authToken);
       if (authToken) {
         const isTokenValid = this.isTokenValid();
         if (isTokenValid) {
           return of(true);
         } else {
-          console.log("Token não está mais válido, vou usar refresh");
+          // console.log("Token não está mais válido, vou usar refresh");
           return this.api.refreshToken(this.authService.getRefreshAuthToken()).pipe(
             switchMap((data: any) => {
               if (data.access) {
-                console.log("Consegui novo token: ", data.access);
+                // console.log("Consegui novo token: ", data.access);
                 localStorage.setItem('token', data.access);
                 return of(true);
               } else {

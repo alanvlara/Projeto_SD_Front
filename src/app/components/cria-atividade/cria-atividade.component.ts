@@ -19,6 +19,7 @@ export class CriaAtividadeComponent {
   mostraFracasso = false;
   mostraFracasso2 = false;
   mostraEventoNaoEncontrado = false;
+  mostraMensagemPermissaoCamera = false;
   photoUrl: any = null;
   // html5QrCode: Html5Qrcode | null = null; // Instância da biblioteca
   leituraQrCode :any;
@@ -31,8 +32,31 @@ export class CriaAtividadeComponent {
     this.mostraFracasso = false;
     this.mostraFracasso2 = false;
     this.mostraSucesso = false;
-
     this.cameraFechada = false;
+
+    let cameraStream: MediaStream | null = null;
+
+    function stopCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+    }
+
+    // Verificar permissões de câmera
+    navigator.mediaDevices.getUserMedia({ video: true })
+  .then((stream) => {
+    // Armazene a instância da câmera
+    cameraStream = stream;
+    // Permissões concedidas, continue com a leitura QR code
+    this.cameraFechada = false;
+  })
+  .catch((error) => {
+    // Permissões não concedidas, exiba a mensagem informativa
+    this.mostraMensagemPermissaoCamera = true;
+  });
+
     let qrCodeSuccessCallbackExecuted = false; // Flag para evitar chamada repetida do callback
     const readerContainer = document.getElementById("reader-container");
 
@@ -52,12 +76,13 @@ export class CriaAtividadeComponent {
     voltarBtn.classList.add("btn", "btn-danger", "mt-2");
     voltarBtn.addEventListener("click", () => {
       html5QrCode.stop().then(() => {
-      // readerContainer!.innerHTML = ''; // Limpar o conteúdo atual
-      this.qrCodeNaoLido = true;
-      readerContainer!.removeChild(readerElement!);
-      readerContainer!.removeChild(voltarBtn);
-      this.cameraFechada = true;
-      })
+        // readerContainer!.innerHTML = ''; // Limpar o conteúdo atual
+        this.qrCodeNaoLido = true;
+        readerContainer!.removeChild(readerElement!);
+        readerContainer!.removeChild(voltarBtn);
+        stopCamera(); // Parar a câmera ao fechar
+        this.cameraFechada = true;
+      });
     });
     readerContainer!.appendChild(voltarBtn);
 
@@ -67,7 +92,7 @@ export class CriaAtividadeComponent {
     const qrCodeSuccessCallback = (decodedText: any, decodedResult: any) => {
       if (!qrCodeSuccessCallbackExecuted) {
         qrCodeSuccessCallbackExecuted = true;
-        console.log(`Código lido = ${decodedText}, vou chamar o get atividades`, decodedResult);
+        // console.log(`Código lido = ${decodedText}, vou chamar o get atividades`, decodedResult);
         localStorage.setItem('leituraQrCode', decodedText);
         this.qrCodeNaoLido = false;
   
@@ -76,6 +101,7 @@ export class CriaAtividadeComponent {
           // Remover a câmera e exibir o valor do QR code
           readerContainer!.innerHTML = ''; // Limpar o conteúdo anterior
           const valorLidoElement = document.createElement("div");
+          stopCamera();
           valorLidoElement.textContent = `Código lido: ${decodedText}`;
           readerContainer!.appendChild(valorLidoElement);
           this.cameraFechada = true;
@@ -84,8 +110,6 @@ export class CriaAtividadeComponent {
     }
 
     function qrCodeErrorCallback(error: any) {
-      // console.error("Erro ao ler o código QR:", error);
-      // Faça algo em resposta ao erro, se necessário
     };
   
     // Iniciar a leitura da câmera
@@ -100,8 +124,31 @@ export class CriaAtividadeComponent {
     this.mostraFracasso = false;
     this.mostraFracasso2 = false;
     this.mostraSucesso = false;
-
     this.cameraFechada = false;
+
+    let cameraStream: MediaStream | null = null;
+
+    function stopCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+    }
+
+    // Verificar permissões de câmera
+    navigator.mediaDevices.getUserMedia({ video: true })
+  .then((stream) => {
+    // Armazene a instância da câmera
+    cameraStream = stream;
+    // Permissões concedidas, continue com a leitura QR code
+    this.cameraFechada = false;
+  })
+  .catch((error) => {
+    // Permissões não concedidas, exiba a mensagem informativa
+    this.mostraMensagemPermissaoCamera = true;
+  });
+        
     const constraints = {
       video: true,
     };
@@ -186,6 +233,7 @@ export class CriaAtividadeComponent {
               this.photoUrl = blob;
               fotoContainer!.innerHTML = '';
               buttonsContainer2.remove();
+              stopCamera();
               this.cameraFechada = true;
           });
 
@@ -203,6 +251,7 @@ export class CriaAtividadeComponent {
           video.remove();
           tirarFotoBtn.remove();
           buttonsContainer.remove();
+          stopCamera();
         });
   
         fecharFotoBtn.addEventListener('click', () => {
@@ -213,6 +262,7 @@ export class CriaAtividadeComponent {
           video.remove();
           tirarFotoBtn.remove();
           buttonsContainer.remove();
+          stopCamera();
           this.cameraFechada = true;
         });
   
@@ -236,7 +286,7 @@ export class CriaAtividadeComponent {
 
   testeClickSalvar() {
     this.leituraQrCode = localStorage.getItem('leituraQrCode');
-    console.log("entrei")
+    // console.log("entrei")
     
     const atividades$ = this.api.getAtividades().pipe(
       catchError(error => {
@@ -286,7 +336,7 @@ export class CriaAtividadeComponent {
 
     const atividade = new FormData;
   
-    console.log("postando atividade", this.photoUrl)
+    // console.log("postando atividade", this.photoUrl)
     const userID = String(this.authService.getUserId())
   
     atividade.append("esporte", evento.esporte);
@@ -296,8 +346,7 @@ export class CriaAtividadeComponent {
     atividade.append("evento", evento.id)
 
     if (this.photoUrl) {
-      console.log('oi alan')
-      // Gere um número aleatório ou um timestamp
+      // Gera um número aleatório ou um timestamp
       const uniqueNumber = Math.floor(Math.random() * 10000); // Gere um número entre 0 e 9999
   
       // Crie o nome do arquivo com o número único

@@ -66,7 +66,18 @@
             <label for="cidade">Cidade</label>
             <input id="cidade" type="text" class="form-control" formControlName="cidade">
         </div>
-        
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">
+            <label for="criador" class="me-1">Desejo Criar Eventos:</label>
+            <input type="checkbox" formControlName="criador" (change)="onCriadorChange($event)">
+            <p *ngIf="isCriador">Entraremos em contato caso esteja marcada essa opção</p>
+        </div>
+        <div *ngIf="isCriador" class="col-6">
+            <label for="representa">Informe quem você represeta (Insituição, empresa e etc)</label>
+            <input placeholder="Ex: Unimed" id="representa" type="text" class="form-control"
+                formControlName="representa">
+        </div>
     </div>
 
 </form>

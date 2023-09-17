@@ -20,6 +20,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { SobreComponent } from './components/sobre/sobre.component';
 import { RankingComponent } from './components/ranking/ranking.component';
 import { PoliticaComponent } from './components/politica/politica.component';
+import { EventosDetailComponent } from './components/eventos-detail/eventos-detail.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { PoliticaComponent } from './components/politica/politica.component';
     SobreComponent,
     RankingComponent,
     PoliticaComponent,
+    EventosDetailComponent,
     
   ],
   imports: [

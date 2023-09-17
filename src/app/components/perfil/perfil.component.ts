@@ -54,7 +54,7 @@ ngOnInit(): void {
           console.log(error);
         },
         complete: () => {
-          console.info('complete');
+          // console.info('complete');
         }
       }));
     } else {
@@ -78,7 +78,7 @@ ngOnInit(): void {
     }  
 
     obterIndiceUsuarioLogado(pessoas: any[], userLogado: any): number {
-      console.log(pessoas, userLogado);
+      // console.log(pessoas, userLogado);
       return pessoas.findIndex(pessoa => pessoa.id === userLogado.pk);
     }
 }

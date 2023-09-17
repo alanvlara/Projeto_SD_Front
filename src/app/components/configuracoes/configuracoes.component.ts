@@ -16,6 +16,7 @@ export class ConfiguracoesComponent {
   mostraFracasso = false;
   usuario :any;
   activeLink = 'active';
+  isCriador = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -37,6 +38,8 @@ export class ConfiguracoesComponent {
           cidade: [''],
           estado: [''],
           endereco: [''],
+          criador: [''],
+          representa: ['']
       });
 
       this.subscribeForms();
@@ -44,7 +47,7 @@ export class ConfiguracoesComponent {
       of(this.api.getUserLogado().subscribe({
         next: data => {
           this.usuario = data
-          console.log(this.usuario)
+          this.isCriador = data.criador
 
           this.form.patchValue({
             username: this.usuario.username,
@@ -55,6 +58,8 @@ export class ConfiguracoesComponent {
             cidade: this.usuario.cidade,
             estado: this.usuario.estado,
             endereco: this.usuario.endereco,
+            criador: this.usuario.criador,
+            representa: this.usuario.representa
           });
         },
       error: error => console.log(error)
@@ -62,6 +67,11 @@ export class ConfiguracoesComponent {
       
 
 
+}
+
+onCriadorChange(event: Event): void {
+  const isChecked = (event.target as HTMLInputElement).checked;
+  this.isCriador = isChecked;
 }
 
 onFileSelected(event: any) {
@@ -134,6 +144,8 @@ onFileSelected(event: any) {
     formData.append('cidade', usuario.cidade);
     formData.append('estado', usuario.estado);
     formData.append('is_active', 'true');
+    formData.append('criador', usuario.criador);
+    formData.append('representa', usuario.representa)
     
     if (usuario.foto instanceof File) {
       formData.append('foto', usuario.foto, usuario.foto.name);
