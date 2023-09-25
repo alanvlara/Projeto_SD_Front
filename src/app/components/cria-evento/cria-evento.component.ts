@@ -35,6 +35,7 @@ ngOnInit(): void {
 }
 
   criar() {
+    this.criarClicado = true;
     this.mostraFracasso = false;
     this.mostraSucesso = false;
     if (this.form.invalid) {
@@ -55,6 +56,7 @@ ngOnInit(): void {
     this.api.postEvento(evento).subscribe({
       next:(response) => {
         this.mostraSucesso = true;
+        this.criarClicado = false;
         const eventoId = (response as any).id;
         setTimeout(() => this.router.navigate([`/eventos/${eventoId}`]), 3000);
       },

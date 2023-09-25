@@ -11,13 +11,16 @@
                                 <button class="col-4 btn btn-primary me-1" (click)="lerQrCode()">Ler QRcode</button>
                                 <button class="col-4 btn btn-warning" (click)="tirarFoto()">Tirar Foto</button>
                             </div>
-                            <div *ngIf="cameraFechada" class="row mt-1 justify-content-center">
+                            <div *ngIf="cameraFechada" class="row mt-1 justify-content-center mb-2">
                                 <button [disabled]="qrCodeNaoLido" class="col-4 btn btn-success"
-                                    (click)="testeClickSalvar()">Salvar</button>
+                                    (click)="salvar()">Salvar</button>
+                            </div>
+                            <div *ngIf="salvarClicado" class="d-flex align-items-center justify-content-center text-success mt-3">
+                                <strong class="me-1">Carregando...</strong>
+                                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 text-center" id="reader-container">
-                                    <!-- <div style="width: 100%;" id="reader"></div> -->
                                 </div>
                             </div>
                             <div class="row">
@@ -25,16 +28,16 @@
                                     <div style="width: 100%" id="fotoContainer"></div>
                                 </div>
                             </div>
-                            <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">
+                            <div *ngIf="mostraSucesso" class="alert alert-success mt-2" role="alert">
                                 Atividade cadastrada com sucesso!
                             </div>
-                            <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+                            <div *ngIf="mostraFracasso" class="alert alert-danger mt-2" role="alert">
                                 Essa Atividade já foi cadastrada para você!
                             </div>
-                            <div *ngIf="mostraFracasso2" class="alert alert-danger" role="alert">
+                            <div *ngIf="mostraFracasso2" class="alert alert-danger mt-2" role="alert">
                                 Você só pode registrar sua participação no dia do evento!
                             </div>
-                            <div *ngIf="mostraEventoNaoEncontrado" class="alert alert-warning" role="alert">
+                            <div *ngIf="mostraEventoNaoEncontrado" class="alert alert-warning mt-2" role="alert">
                                 Evento Não Encontrado!
                             </div>
                         </div>

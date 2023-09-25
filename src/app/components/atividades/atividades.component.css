@@ -1,18 +1,6 @@
-.lista-atividades:hover{
-    background-color: rgb(118, 11, 139);
+#criar-atividade, #buscar{
+    background-color: #d87b3d; 
 }
-
-#buscar{
-    background-color: #cb3dd8; 
-}
-#buscar:hover{
-    background-color: rgb(118, 11, 139);
-}
-
-#criar-atividade{
-    background-color: #cb3dd8; 
-}
-
-#criar-atividade:hover{
-    background-color: rgb(118, 11, 139);
+#criar-atividade:hover, #buscar:hover, .lista-atividades:hover{
+    background-color: rgb(185, 76, 12);
 }

@@ -40,8 +40,7 @@ import { EventosDetailComponent } from './components/eventos-detail/eventos-deta
     SobreComponent,
     RankingComponent,
     PoliticaComponent,
-    EventosDetailComponent,
-    
+    EventosDetailComponent,    
   ],
   imports: [
     BrowserModule,

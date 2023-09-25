@@ -58,6 +58,10 @@
                 </div>
                 <button [disabled]="entrarClicado" id="signIn" class="btn btn-mg" (click)="entrar()">Entrar</button>
               </form>
+              <div *ngIf="entrarClicado" class="d-flex align-items-center text-success mt-3">
+                <strong class="me-1">Carregando...</strong>
+                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+            </div>
             </div>
             <div class="row mx-auto mb-3" style="width: 22rem"><div class="text-center">Quack para um estilo de vida saudável - 
               Seja como nosso pato branco, mergulhe nos esportes!</div></div>

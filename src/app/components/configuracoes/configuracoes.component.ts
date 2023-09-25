@@ -16,7 +16,9 @@ export class ConfiguracoesComponent {
   mostraFracasso = false;
   usuario :any;
   activeLink = 'active';
-  isCriador = false;
+  quer_criar = false;
+  salvarClicado = false;
+  userPhotoUrl: string | undefined;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -38,8 +40,8 @@ export class ConfiguracoesComponent {
           cidade: [''],
           estado: [''],
           endereco: [''],
-          criador: [''],
-          representa: ['']
+          quer_criar: ['false'],
+          representa: ['Nenhuma']
       });
 
       this.subscribeForms();
@@ -47,7 +49,7 @@ export class ConfiguracoesComponent {
       of(this.api.getUserLogado().subscribe({
         next: data => {
           this.usuario = data
-          this.isCriador = data.criador
+          this.quer_criar = data.quer_criar
 
           this.form.patchValue({
             username: this.usuario.username,
@@ -58,9 +60,10 @@ export class ConfiguracoesComponent {
             cidade: this.usuario.cidade,
             estado: this.usuario.estado,
             endereco: this.usuario.endereco,
-            criador: this.usuario.criador,
-            representa: this.usuario.representa
+            querCriar: this.usuario.querCriar,
+            representa: this.usuario.representa,
           });
+          this.userPhotoUrl = this.usuario.foto;
         },
       error: error => console.log(error)
   }))
@@ -71,7 +74,7 @@ export class ConfiguracoesComponent {
 
 onCriadorChange(event: Event): void {
   const isChecked = (event.target as HTMLInputElement).checked;
-  this.isCriador = isChecked;
+  this.quer_criar = isChecked;
 }
 
 onFileSelected(event: any) {
@@ -81,14 +84,6 @@ onFileSelected(event: any) {
     const reader = new FileReader();
 
     reader.onload = () => {
-      // Set the form value here if needed
-
-      // Reset the input field value
-      // this.fotoInput.nativeElement.value = '';
-
-      // Display file info
-      console.log(file);
-      console.log(file.name);
       this.form.get('foto')?.setValue(file);
     };
 
@@ -127,6 +122,8 @@ onFileSelected(event: any) {
   
 
   salvar(): void {
+    this.salvarClicado = true;
+
     if (this.form.invalid) {
         this.form.markAllAsTouched();
         return;
@@ -144,8 +141,10 @@ onFileSelected(event: any) {
     formData.append('cidade', usuario.cidade);
     formData.append('estado', usuario.estado);
     formData.append('is_active', 'true');
-    formData.append('criador', usuario.criador);
+    formData.append('quer_criar', usuario.quer_criar);
     formData.append('representa', usuario.representa)
+
+    console.log(formData.get('criador'))
     
     if (usuario.foto instanceof File) {
       formData.append('foto', usuario.foto, usuario.foto.name);
@@ -157,10 +156,13 @@ onFileSelected(event: any) {
         next: data => {
             console.log(data);
             this.mostraSucesso = true;
+            this.salvarClicado = false;
+            setTimeout(this.navigateToProfile,4000)
         },
         error: erro => {
             console.log(erro);
             this.mostraFracasso = true;
+            this.salvarClicado = false;
         },
         complete: () => console.info('complete')
     }));

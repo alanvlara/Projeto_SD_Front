@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from 'src/app/utils/validators';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
-import { of, filter, distinctUntilChanged } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-cadastro',
@@ -16,7 +15,7 @@ export class CadastroComponent {
   mostraSucesso = false;
   mostraFracasso = false;
   validarSenhas = true;
-  isCriador = false;
+  querCriar = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -39,8 +38,8 @@ export class CadastroComponent {
         cidade: ['', [Validators.required]],
         estado: ['', [Validators.required]], 
         politica: ['', [Validators.required, CustomValidators.politicaValidator]],
-        criador: [''],
-        representa: ['', []]
+        querCriar: ['false'],
+        representa: ['Nenhuma']
     });
 
     this.subscribeForms();
@@ -103,7 +102,7 @@ export class CadastroComponent {
 
   onCriadorChange(event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
-    this.isCriador = isChecked;
+    this.querCriar = isChecked;
 }
   
 

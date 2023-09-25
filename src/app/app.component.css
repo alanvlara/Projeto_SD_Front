@@ -6,9 +6,13 @@
 #sair:hover,
 #meuPerfil:hover,
 #meus-eventos:hover,
-#tema:hover {
-    background-color: rgb(118, 11, 139);
+#tema:hover,
+#atividades:hover {
+    background-color: rgb(185, 76, 12);
 }
 
+nav{
+    height: 60px;
+}
 
   

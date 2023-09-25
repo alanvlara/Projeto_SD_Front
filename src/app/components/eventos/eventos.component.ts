@@ -12,11 +12,13 @@ export class EventosComponent {
   eventosFuturos: any[] = [];
   eventosPassados: any[] = [];
   eventosAdmin: any[] = [];
+  eventosFiltrados: any[] = [];
   texto = '';
   eventosPorPagina = 10; // Número de eventos por página
   paginaAtual = 1; // Página atual
   filtro: string = 'futuros';
   criador = false;
+  textoBusca = '';
 
 
   constructor(private api:ApiService){
@@ -28,7 +30,7 @@ export class EventosComponent {
     of(this.api.getUserLogado().subscribe({
       next: data => this.criador = data.criador,
       error: error => console.log(error)
-    }))
+    }));
   }
 
   filtrarEventos() {
@@ -49,7 +51,8 @@ export class EventosComponent {
 
   getEventos(){
     of(this.api.getAllEventos().subscribe({
-      next: data =>{this.eventos = data},
+      next: data =>{this.eventos = data
+      this.eventosFiltrados = data},
       error: erro => console.log(erro),
       complete: () => console.info('complete') 
     }))
@@ -69,6 +72,11 @@ export class EventosComponent {
     const eventDate = new Date(dateString);
     return eventDate.getTime() - comparisonDate.getTime();
   }
+
+  filtrarEventosPorNome() {
+    this.eventosFiltrados = this.eventos.filter(evento => evento.titulo.toLowerCase().includes(this.textoBusca.toLowerCase()));
+  }
+  
 
 }
 

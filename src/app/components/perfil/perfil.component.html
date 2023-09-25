@@ -6,7 +6,7 @@
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-md-12 col-xl-12">
 
-                            <div class="card" style=" height: 100%; border-radius: 15px;">
+                            <div class="card mt-2" style=" height: 100%; border-radius: 15px;">
                                 <div class="card-body text-center">
                                     <div class="mt-3 mb-4">
                                         <img src="{{usuario.foto}}" class="rounded-circle img-fluid"
@@ -22,7 +22,7 @@
                                             Ranking de Pato Branco
                                         </button>
                                         <button routerLink="/atividades" type="button"
-                                            class="col-3 btn btn-outline-danger btn-floating">
+                                            class="col-3 btn btn-outline-warning btn-floating">
                                             Atividades
                                         </button>
                                     </div>
@@ -33,7 +33,8 @@
                                         </div>
                                         <div class="col-4">
                                             <button routerLink="/criar-atividade" id="criar-atividade"
-                                                class="btn btn-lg  rounded-pill">+</button>
+                                                class="btn btn-lg  rounded-pill" data-toggle="tooltip"
+                                                data-placement="top" title="Nova Atividade">+</button>
                                         </div>
                                         <div class="col-4">
                                             <p class="mb-2 h5">{{posicao+1}}°</p>

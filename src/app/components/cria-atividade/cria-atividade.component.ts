@@ -16,12 +16,12 @@ export class CriaAtividadeComponent {
   ){}
 
   mostraSucesso = false;
+  salvarClicado = false;
   mostraFracasso = false;
   mostraFracasso2 = false;
   mostraEventoNaoEncontrado = false;
   mostraMensagemPermissaoCamera = false;
   photoUrl: any = null;
-  // html5QrCode: Html5Qrcode | null = null; // Instância da biblioteca
   leituraQrCode :any;
   qrCodeNaoLido = true;
   cameraFechada = true;
@@ -102,7 +102,7 @@ export class CriaAtividadeComponent {
           readerContainer!.innerHTML = ''; // Limpar o conteúdo anterior
           const valorLidoElement = document.createElement("div");
           stopCamera();
-          valorLidoElement.textContent = `Código lido: ${decodedText}`;
+          valorLidoElement.textContent = `Evento lido: ${decodedText}`;
           readerContainer!.appendChild(valorLidoElement);
           this.cameraFechada = true;
         });
@@ -110,6 +110,7 @@ export class CriaAtividadeComponent {
     }
 
     function qrCodeErrorCallback(error: any) {
+      //coloquei para fazer nada quando não le
     };
   
     // Iniciar a leitura da câmera
@@ -284,9 +285,9 @@ export class CriaAtividadeComponent {
   
   
 
-  testeClickSalvar() {
+  salvar() {
     this.leituraQrCode = localStorage.getItem('leituraQrCode');
-    // console.log("entrei")
+    this.salvarClicado = true;
     
     const atividades$ = this.api.getAtividades().pipe(
       catchError(error => {
@@ -326,6 +327,7 @@ export class CriaAtividadeComponent {
       }
       if(contador == eventos.length){
         this.mostraEventoNaoEncontrado = true;
+        this.salvarClicado = false;
       }
     });
   }
@@ -335,8 +337,8 @@ export class CriaAtividadeComponent {
   postarAtividade(evento: any): void {
 
     const atividade = new FormData;
-  
-    // console.log("postando atividade", this.photoUrl)
+    this.qrCodeNaoLido = true;
+
     const userID = String(this.authService.getUserId())
   
     atividade.append("esporte", evento.esporte);
@@ -362,12 +364,17 @@ export class CriaAtividadeComponent {
       next: data => {
           console.log(data);
           this.mostraSucesso = true;
+          this.salvarClicado = false;
       },
       error: erro => {
           console.log(erro);
           this.mostraFracasso2 = true;
+          this.salvarClicado = false;
       },
-      complete: () => console.info('complete')
+      complete: () => { 
+        console.info('complete')
+        this.salvarClicado = false;
+      }
   }));
   
   }

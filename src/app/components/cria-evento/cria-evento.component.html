@@ -74,11 +74,16 @@
             </div>
         </div>
         <button [disabled]="criarClicado" id="criar" class="btn btn-mg" (click)="criar()">Criar</button>
+        <div *ngIf="criarClicado" class="d-flex align-items-center text-success mt-1">
+            <strong>Carregando...</strong>
+            <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+        </div>
         <div *ngIf="mostraSucesso" class="alert alert-success mt-2" role="alert">
             Evento Cadastrado, aguarde e você sera direcionado para a página do evento.
         </div>
         <div *ngIf="mostraFracasso" class="alert alert-danger mt-2" role="alert">
-            Erro ao cadastrar o evento
+            Erro ao cadastrar o evento, verifique se já não existe um evento com esse mesmo nome e data. Lembre-se
+            a data deve ser igual ou superior a data atual!!!
         </div>
     </form>
 </div>

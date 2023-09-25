@@ -17,6 +17,7 @@ export interface ApiResponse {
     foto: string
     totalEventos: number,
     criador: boolean,
+    quer_criar: boolean,
     representa: string,
     groups: [],
     user_permissions: []

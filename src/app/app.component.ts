@@ -1,4 +1,4 @@
-import {  Component, OnInit } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { ApiService } from './services/api.service';
@@ -14,14 +14,16 @@ export class AppComponent implements OnInit {
   mostraHomeBotao = true;
   darkMode = false;
 
+
   constructor(
     private router: Router,
     private authService: AuthenticationService,
     private api: ApiService,
-    // private cdr: ChangeDetectorRef
+    
   ) {}
 
   ngOnInit() {
+    
     const loggedIn = localStorage.getItem('loggedIn') === 'true';
     this.authService.loggedInStatus.next(loggedIn);
     this.authService.getLoggedInStatus().subscribe(loggedIn => {
@@ -61,11 +63,27 @@ export class AppComponent implements OnInit {
   goToConfiguracoes() {
     this.router.navigate(['configuracoes/']);
   }
-
+    
   sair() {
     this.api.postLogOutUser().subscribe({
       next: () => this.onLogoutSuccess(),
-      error: error => this.onLogoutError(error),
+      error: error => {
+        this.onLogoutError(error)
+        if (error.status === 401) {
+          // Erro 401 (não autorizado) recebido
+
+          // Realize o logout local (exemplo: remova o token de autenticação)
+          // this.authService.logoutLocally();
+
+          // Limpe o cache (localStorage)
+          localStorage.clear();
+
+          // Recarregue a página
+          // window.location.reload();
+
+          this.router.navigate(['/home']);
+        }
+      },
       complete: () => console.log('Logout completed')
     });
   }

@@ -1,4 +1,4 @@
-<div class="container-fluid py-md-3">
+<div class="container py-md-3">
     <h2>Preencha os campos</h2>
     <form [formGroup]="form">
         <div class="row mb-3">
@@ -129,8 +129,9 @@
                     <li *ngIf="form.get('esportePreferido')?.hasError('required')">Campo obrigatório</li>
                 </ul>
             </div>
+        </div>
             <div class="row mb-3">
-                <div class="col-6 mt-3">
+                <div class="col-6">
                     <label for="cep">CEP</label>
                     <input placeholder="Ex: 00000-000" id="cep" type="text" class="form-control" formControlName="cep"
                         [ngClass]="{
@@ -142,7 +143,7 @@
                         <!-- <li *ngIf="form.get('esportePreferido')?.hasError('esportePreferido')">esportePreferido inválido</li> -->
                     </ul>
                 </div>
-                <div class="col-5 mt-3">
+                <div class="col-6">
                     <label for="endereco">Endereço</label>
                     <input placeholder="Ex: Rua dos Alfeneiros" id="endereco" type="text" class="form-control"
                         formControlName="endereco" [ngClass]="{
@@ -155,6 +156,7 @@
                     </ul>
                 </div>
             </div>
+            <div class="row mb-3">
             <div class="col-10">
                 <label for="cidade">Cidade</label>
                 <input placeholder="Ex: São Paulo" id="cidade" type="text" class="form-control" formControlName="cidade"
@@ -181,11 +183,11 @@
         </div>
         <div class="row mb-3">
             <div class="col-4">
-                <label for="criador" class="me-1">Desejo Criar Eventos:</label>
-                <input type="checkbox" formControlName="criador" (change)="onCriadorChange($event)">
-                <p *ngIf="isCriador">Entraremos em contato caso esteja marcada essa opção</p>
+                <label for="querCriar" class="me-1">Desejo Criar Eventos:</label>
+                <input type="checkbox" formControlName="querCriar" (change)="onCriadorChange($event)">
+                <p *ngIf="querCriar">Entraremos em contato se marcada essa opção</p>
             </div>
-            <div *ngIf="isCriador" class="col-6">
+            <div *ngIf="querCriar" class="col-6">
                 <label for="representa">Informe quem você represeta (Insituição, empresa e etc)</label>
                 <input placeholder="Ex: Unimed" id="representa" type="text" class="form-control"
                     formControlName="representa">

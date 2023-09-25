@@ -30,7 +30,7 @@ export class AuthenticationService {
 
   getRefreshAuthToken(): string|null {
     const refreshToken = localStorage.getItem('refresh_token');
-    return refreshToken // Implemente esse método no ApiService
+    return refreshToken 
   }
 
   getUserId(): string|null {

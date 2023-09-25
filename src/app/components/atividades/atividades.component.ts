@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-atividades',
@@ -12,11 +11,11 @@ export class AtividadesComponent {
   atividades: any[] = [];
   atividadesPorPagina = 10; // Número de atividades por página
   paginaAtual = 1; // Página atual
-  texto = ''
+  textoBusca = ''
+  atividadesFiltradas: any[] = [];
   
   constructor(
     private api:ApiService,
-    private auth: AuthenticationService,
     ){
     this.getAtividades();
   }
@@ -24,14 +23,16 @@ export class AtividadesComponent {
   getAtividades(){
     of(this.api.getAtividades().subscribe({
       next: data => {
-        // console.log(data)
-        for(let i = 0; i < data.length; i++){
-          if(data[i].usuario['id'] == this.auth.getUserId()){
-            this.atividades.push(data[i]);
-          }
-        }},
+        this.atividades = data;
+        this.atividadesFiltradas = data;
+        },
       error: erro => console.log(erro),
       complete: () => console.info('complete') 
     }))
+  }
+
+  filtrarAtividades(): void {
+    // filter para criar uma nova lista de atividades que contenham o esporte buscado.
+    this.atividadesFiltradas = this.atividades.filter(atividade => atividade.evento.esporte.toLowerCase().includes(this.textoBusca.toLowerCase()));
   }
 }

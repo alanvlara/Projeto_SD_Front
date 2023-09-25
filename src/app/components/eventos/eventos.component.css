@@ -1,24 +1,25 @@
 .lista-eventos:hover{
-    background-color: rgb(118, 11, 139);
+    background-color: rgb(185, 76, 12);
 }
 
 #buscar{
-    background-color: #cb3dd8; 
+    background-color: #d87b3d; 
 }
 #buscar:hover{
-    background-color: rgb(118, 11, 139);
+    background-color: rgb(185, 76, 12);
 }
 
 .qr_code{
-    background-color: #cb3dd8; 
+    background-color: #d87b3d; 
 }
 .qr_code:hover{
     background-color: blue;
 }
 
 #criar-evento{
-    background-color: #cb3dd8; 
+    background-color: #d87b3d; 
 }
 #criar-evento:hover{
-    background-color: rgb(118, 11, 139);
+    background-color: rgb(185, 76, 12);
 }
+

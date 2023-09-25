@@ -1,4 +1,4 @@
-<div class="container-fluid mt-3">
+<div class="container mt-3">
     <h2>Preencha os campos</h2>
 <form [formGroup]="form">
     <div class="row mb-3">
@@ -6,9 +6,12 @@
             <label for="username">Username</label>
             <input id="username" type="text" class="form-control" formControlName="username">
         </div>
-        <div class="col-6">
+        <div class="col-md-5 col-4">
             <label for="foto">Foto</label>
             <input #fotoInput (change)="onFileSelected($event)" accept="image/*" placeholder="" id="foto" type="file" class="form-control" formControlName="foto">
+        </div>
+        <div class="col-md-1 col-2 mt-2 d-flex justify-content-end">
+            <img [src]="userPhotoUrl" *ngIf="userPhotoUrl" alt="Foto do usuário" style="width: 50px; height: 50px;">
         </div>
     </div>
 
@@ -68,12 +71,12 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-4">
-            <label for="criador" class="me-1">Desejo Criar Eventos:</label>
-            <input type="checkbox" formControlName="criador" (change)="onCriadorChange($event)">
-            <p *ngIf="isCriador">Entraremos em contato caso esteja marcada essa opção</p>
+        <div class="col-6">
+            <label for="querCriar" class="me-1">Desejo Criar Eventos:</label>
+            <input type="checkbox" formControlName="querCriar" (change)="onCriadorChange($event)">
+            <p *ngIf="quer_criar">Entraremos em contato se marcada essa opção</p>
         </div>
-        <div *ngIf="isCriador" class="col-6">
+        <div *ngIf="quer_criar" class="col-6">
             <label for="representa">Informe quem você represeta (Insituição, empresa e etc)</label>
             <input placeholder="Ex: Unimed" id="representa" type="text" class="form-control"
                 formControlName="representa">
@@ -83,14 +86,18 @@
 </form>
 
 <div class="row">
-    <div class="col mb-1">
-        <button class="btn btn-success" (click)="salvar()">Salvar</button>
+    <div class="col mb-2">
+        <button class="btn btn-success" [disabled]="salvarClicado" (click)="salvar()">Salvar</button>
         <a class="btn btn-danger" (click)="navigateToProfile()">Cancelar</a>
     </div>
-    <div *ngIf="mostraSucesso" class="alert alert-success" role="alert">
+    <div *ngIf="salvarClicado" class="d-flex align-items-center justify-content-center text-success mt-1">
+        <strong>Carregando...</strong>
+        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+    </div>
+    <div *ngIf="mostraSucesso" class="alert alert-success mt-1" role="alert">
         Dados atualizados com sucesso
     </div>
-    <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
+    <div *ngIf="mostraFracasso" class="alert alert-danger mt-1" role="alert">
         Não foi possível atualizar seus dados
     </div>
 </div>
