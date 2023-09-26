@@ -16,7 +16,7 @@ export class ConfiguracoesComponent {
   mostraFracasso = false;
   usuario :any;
   activeLink = 'active';
-  quer_criar = false;
+  querCriar = false;
   salvarClicado = false;
   userPhotoUrl: string | undefined;
 
@@ -40,7 +40,7 @@ export class ConfiguracoesComponent {
           cidade: [''],
           estado: [''],
           endereco: [''],
-          quer_criar: ['false'],
+          querCriar: false,
           representa: ['Nenhuma']
       });
 
@@ -49,7 +49,6 @@ export class ConfiguracoesComponent {
       of(this.api.getUserLogado().subscribe({
         next: data => {
           this.usuario = data
-          this.quer_criar = data.quer_criar
 
           this.form.patchValue({
             username: this.usuario.username,
@@ -60,21 +59,18 @@ export class ConfiguracoesComponent {
             cidade: this.usuario.cidade,
             estado: this.usuario.estado,
             endereco: this.usuario.endereco,
-            querCriar: this.usuario.querCriar,
+            querCriar: this.usuario.quer_criar,
             representa: this.usuario.representa,
           });
           this.userPhotoUrl = this.usuario.foto;
         },
       error: error => console.log(error)
   }))
-      
-
-
 }
 
 onCriadorChange(event: Event): void {
   const isChecked = (event.target as HTMLInputElement).checked;
-  this.quer_criar = isChecked;
+  this.querCriar = isChecked;
 }
 
 onFileSelected(event: any) {
@@ -141,10 +137,10 @@ onFileSelected(event: any) {
     formData.append('cidade', usuario.cidade);
     formData.append('estado', usuario.estado);
     formData.append('is_active', 'true');
-    formData.append('quer_criar', usuario.quer_criar);
+    formData.append('quer_criar', usuario.querCriar);
     formData.append('representa', usuario.representa)
 
-    console.log(formData.get('criador'))
+    console.log(formData.get('querCriar'))
     
     if (usuario.foto instanceof File) {
       formData.append('foto', usuario.foto, usuario.foto.name);
@@ -154,10 +150,10 @@ onFileSelected(event: any) {
 
     of(this.api.putUser(formData, id).subscribe({
         next: data => {
-            console.log(data);
+            // console.log(data);
             this.mostraSucesso = true;
             this.salvarClicado = false;
-            setTimeout(this.navigateToProfile,4000)
+            setTimeout(()=>this.router.navigate(['/perfil']), 5000);
         },
         error: erro => {
             console.log(erro);

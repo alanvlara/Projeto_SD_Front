@@ -38,7 +38,7 @@ export class CadastroComponent {
         cidade: ['', [Validators.required]],
         estado: ['', [Validators.required]], 
         politica: ['', [Validators.required, CustomValidators.politicaValidator]],
-        querCriar: ['false'],
+        querCriar: false,
         representa: ['Nenhuma']
     });
 
@@ -100,7 +100,7 @@ export class CadastroComponent {
     }
   }
 
-  onCriadorChange(event: Event): void {
+  onQuerCriarChange(event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.querCriar = isChecked;
 }
@@ -125,7 +125,7 @@ export class CadastroComponent {
       next: data => {
         console.log(data);
         this.mostraSucesso = true;  
-        setTimeout(()=>this.router.navigate(['/home']), 4000);
+        setTimeout(()=>this.router.navigate(['/perfil']), 4000);
       },
       error: erro => {
         console.log(erro);  

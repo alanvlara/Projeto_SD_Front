@@ -1,24 +1,84 @@
 <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="text-center mt-2" style="color: rgb(185, 76, 12);">Detalhes da evento</h2>
+        <h2 class="text-center my-4" style="color: rgb(185, 76, 12);">Detalhes do evento</h2>
       </div>
     </div>
   
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <h3>{{ eventoSelecionado.titulo }}</h3>
-        <p><strong>Esporte:</strong> {{ eventoSelecionado.esporte }}</p>
-        <p><strong>Data:</strong> {{ eventoSelecionado.data | date: 'dd/MM/yyyy' }}</p>
-        <button *ngIf="eventoSelecionado.qr_code" class="btn btn-success" (click)="verGrafico()">Ver gráfico de participantes</button>
+    
+      <form [formGroup]="form">
+        <div class="row mb-3 d-flex justify-content-center">
+          <div class="col-3">
+            <label for="titulo">Titulo</label>
+            <input id="titulo" type="text" class="form-control" formControlName="titulo">
+        </div>
+          <div class="col-3">
+            <label for="data">Data</label>
+            <input id="data" type="text" class="form-control" formControlName="data">
+        </div>
+          <div class="col-3">
+              <label for="esporte">Esporte</label>
+              <select data-dropup-auto="false" class="form-select form-control" aria-label="Default select example"  formControlName="esporte">
+                  <option selected>Clique para selecionar</option>
+                  <option value="Atletismo">Atletismo</option>
+                  <option value="Badminton">Badminton</option>
+                  <option value="Basquete">Basquete</option>
+                  <option value="Corrida">Corrida</option>
+                  <option value="Dança">Dança</option>
+                  <option value="Futebol">Futebol</option>
+                  <option value="Futsal">Futsal</option>
+                  <option value="Ginástica">Ginástica</option>
+                  <option value="Handeball">Handeball</option>
+                  <option value="Judô">Judô</option>
+                  <option value="Natação">Natação</option>
+                  <option value="Passeio">Passeio</option>
+                  <option value="Tênis de Campo">Tênis de Campo</option>
+                  <option value="Tênis de Mesa">Tênis de Mesa</option>
+                  <option value="Torneio de Cheerleaders">Torneio de Cheerleaders</option>
+                  <option value="Vôlei">Vôlei</option>
+                  <option value="Xadrez">Xadrez</option>
+              </select>
+          </div>
       </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-md-4 d-flex">
-        <button *ngIf="eventoSelecionado.qr_code" type="button" class="btn btn-sm qr_code" data-bs-toggle="modal" data-bs-target="#qrCodeModal">
+        <div class="row mb-3  d-flex justify-content-center">
+          <div class="col-9">
+            <label for="link">Link</label>
+            <input id="link" type="text" class="form-control" formControlName="link">
+        </div>
+        </div>
+      </form>
+    <div class="row my-5">
+      <div class="col-12 d-flex justify-content-center">
+        <button *ngIf="eventoSelecionado.qr_code && edicao" type="button" class="me-2 btn btn-sm qr_code" data-bs-toggle="modal" data-bs-target="#qrCodeModal">
           Acessar Qr Code
         </button>
+        <button *ngIf="eventoSelecionado.qr_code && edicao" type="button" class="btn btn-secondary" (click)="editar()">Editar Evento</button>
+        <button *ngIf="eventoSelecionado.qr_code && edicao" type="button" class="btn btn-danger mx-2" (click)="deletar()">Deletar Evento</button>
+        <button *ngIf="eventoSelecionado.qr_code && edicao" class="btn btn-success btn-sm mx-2" (click)="exportarExcel()">Exportar Dados Para Excel</button>
+        <button *ngIf="edicao" routerLink="/eventos" class="btn btn-primary btn-sm">Ir Para Lista de Eventos</button>
+        <button *ngIf="!edicao" type="button" class="btn btn-success mx-2" (click)="salvar()">Salvar</button>
+        <button *ngIf="!edicao" type="button" class="btn btn-danger" (click)="fechar()">Fechar</button>
       </div>
+    </div>
+    <div *ngIf="salvarClicado" class="d-flex align-items-center justify-content-center text-success mt-1">
+      <strong>Carregando...</strong>
+      <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+    </div>
+    <div *ngIf="mostraPutSucesso" class="alert alert-success mt-1" role="alert">
+      Dados atualizados com sucesso, a pagina sera recarregada
+    </div>
+    <div *ngIf="mostraPutFracasso" class="alert alert-danger mt-1" role="alert">
+      Não foi possível atualizar os dados
+    </div>
+    <div *ngIf="deletarClicado" class="d-flex align-items-center justify-content-center text-success mt-1">
+      <strong>Carregando...</strong>
+      <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+    </div>
+    <div *ngIf="mostraDeleteSucesso" class="alert alert-success mt-1" role="alert">
+      Evento deletado com sucesso, você será redirecionado a lista de eventos
+    </div>
+    <div *ngIf="mostraDeleteFracasso" class="alert alert-danger mt-1" role="alert">
+      Não foi possível deletar o evento
     </div>
   
     <!-- Modal -->
@@ -33,14 +93,8 @@
             <img src="{{eventoSelecionado.qr_code}}" alt="">
           </div>
           <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button> -->
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-12">
-        <a routerLink="/eventos" class="btn btn-primary">Voltar para Lista</a>
       </div>
     </div>
   </div>

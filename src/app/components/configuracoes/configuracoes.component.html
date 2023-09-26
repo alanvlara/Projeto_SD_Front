@@ -74,9 +74,9 @@
         <div class="col-6">
             <label for="querCriar" class="me-1">Desejo Criar Eventos:</label>
             <input type="checkbox" formControlName="querCriar" (change)="onCriadorChange($event)">
-            <p *ngIf="quer_criar">Entraremos em contato se marcada essa opção</p>
+            <p *ngIf="querCriar">Entraremos em contato se marcada essa opção</p>
         </div>
-        <div *ngIf="quer_criar" class="col-6">
+        <div *ngIf="querCriar" class="col-6">
             <label for="representa">Informe quem você represeta (Insituição, empresa e etc)</label>
             <input placeholder="Ex: Unimed" id="representa" type="text" class="form-control"
                 formControlName="representa">
@@ -95,7 +95,7 @@
         <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
     </div>
     <div *ngIf="mostraSucesso" class="alert alert-success mt-1" role="alert">
-        Dados atualizados com sucesso
+        Dados atualizados com sucesso, você será redirecionado ao seu perfil
     </div>
     <div *ngIf="mostraFracasso" class="alert alert-danger mt-1" role="alert">
         Não foi possível atualizar seus dados

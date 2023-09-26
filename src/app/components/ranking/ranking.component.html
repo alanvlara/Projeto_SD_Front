@@ -1,31 +1,50 @@
 <div class="container">
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4">
-            <form class="d-flex mt-3" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button id="buscar" class="btn btn-mg" type="submit">Buscar</button>
-            </form>
-        </div>
-    </div>
-    <div class="row mt-3 ">
-        <div class="col-12 ">
-            <h2 class="text-center" style="color: rgb(118, 11, 139); margin-bottom: 40px;">Ranking</h2>
-            <ul>
-              <li *ngFor="let pessoa of pessoas.slice((paginaAtual - 1) * pessoasPorPagina, paginaAtual * pessoasPorPagina)|keyvalue, let i = index" class="list-group">
-              <div class="list-group">
-                <a role="banner" class="list-group-item list-group-item-action lista-ranking">
-                  <div class="d-flex w-100 justify-content-between">
-                    <div>{{ i + 1 }}°</div>
-                    <img src="{{pessoa.value.foto}}" class="rounded-circle img-fluid " style="width: 80px;" />
-                    <h5 class="my-auto">{{pessoa.value.first_name}} {{pessoa.value.last_name}}</h5>
-                    <p class="my-auto">{{pessoa.value.esportePreferido}}</p>
-                    <small class="text-body-secondary my-auto">{{pessoa.value.totalEventos}}</small>
-                  </div>
-                </a>
-              </div>  
-              </li>
-            </ul> 
-        </div>
-    </div>
+  <div class="row">
+      <div class="col-8 mt-3">
+        <label for="filtroEvento" class="form-label me-2">Ranking do esporte:</label>
+        <select [(ngModel)]="filtro" name="filtroEvento" id="filtroEvento" class="form-select-sm" (change)="filtrarRanking()">
+          <option selected>Clique para selecionar</option>
+          <option value="Atletismo">Atletismo</option>
+          <option value="Badminton">Badminton</option>
+          <option value="Basquete">Basquete</option>
+          <option value="Corrida">Corrida</option>
+          <option value="Dança">Dança</option>
+          <option value="Futebol">Futebol</option>
+          <option value="Futsal">Futsal</option>
+          <option value="Ginástica">Ginástica</option>
+          <option value="Handeball">Handeball</option>
+          <option value="Judô">Judô</option>
+          <option value="Natação">Natação</option>
+          <option value="Passeio">Passeio</option>
+          <option value="Tênis de Campo">Tênis de Campo</option>
+          <option value="Tênis de Mesa">Tênis de Mesa</option>
+          <option value="Torneio de Cheerleaders">Torneio de Cheerleaders</option>
+          <option value="Vôlei">Vôlei</option>
+          <option value="Xadrez">Xadrez</option>
+    </select>
+      </div>
+      <div class="col-4 mt-3">
+          O ranking padrão é o do seu esporte preferido
+      </div>
+  </div>
+  <div class="row mt-3 ">
+      <div class="col-12">
+          <h2 class="text-center" style="color: rgb(185, 76, 12); margin-bottom: 40px;">Ranking</h2>
+          <ul style="margin: 0; padding: 0;">
+            <li *ngFor="let pessoa of pessoas.slice((paginaAtual - 1) * pessoasPorPagina, paginaAtual * pessoasPorPagina)|keyvalue, let i = index" class="list-group">
+            <div class="list-group">
+              <a role="banner" class="list-group-item list-group-item-action lista-ranking">
+                <div class="d-flex w-100 justify-content-between">
+                  <div>{{ i + 1 }}°</div>
+                  <img src="{{pessoa.value.foto}}" class="rounded-circle img-fluid " style="width: 80px;" />
+                  <h5 class="my-auto">{{pessoa.value.first_name}} {{pessoa.value.last_name}}</h5>
+                  <p class="my-auto">{{pessoa.value.esportePreferido}}</p>
+                  <small class="text-body-secondary my-auto">{{pessoa.value.totalEventos}}</small>
+                </div>
+              </a>
+            </div>  
+            </li>
+          </ul> 
+      </div>
+  </div>
 </div>

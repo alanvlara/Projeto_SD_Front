@@ -123,6 +123,18 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'evento/eventos/', evento, {headers: httpHeaders})
   }
 
+  putEvento(evento: FormData, id: any){
+    const token = localStorage.getItem('token');
+    const httpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
+    return this.http.put(this.baseUrl + `evento/eventos/${id}/`, evento, {headers: httpHeaders})
+  }
+
+  deleteEvento(id: any){
+    const token = localStorage.getItem('token');
+    const httpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
+    return this.http.delete(this.baseUrl + `evento/eventos/${id}/`, {headers: httpHeaders})
+  }
+
   confirmEmail(key: any){
     return this.http.post(this.baseUrl + '/accounts/registration/verify-email/',{"key": key}, {});
   }

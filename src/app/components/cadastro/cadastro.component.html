@@ -184,7 +184,7 @@
         <div class="row mb-3">
             <div class="col-4">
                 <label for="querCriar" class="me-1">Desejo Criar Eventos:</label>
-                <input type="checkbox" formControlName="querCriar" (change)="onCriadorChange($event)">
+                <input type="checkbox" formControlName="querCriar" (change)="onQuerCriarChange($event)">
                 <p *ngIf="querCriar">Entraremos em contato se marcada essa opção</p>
             </div>
             <div *ngIf="querCriar" class="col-6">
