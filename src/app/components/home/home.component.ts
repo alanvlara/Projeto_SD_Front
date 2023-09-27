@@ -37,6 +37,7 @@ export class HomeComponent {
 
 
 entrar(): void {
+  this.mostraFracasso = false;
     if (this.form.invalid) {
         this.form.markAllAsTouched();
         return;

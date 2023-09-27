@@ -13,7 +13,8 @@ import { of } from 'rxjs';
 export class CadastroComponent {
   form!: FormGroup;
   mostraSucesso = false;
-  mostraFracasso = false;
+  mostraFracasso = false
+  textoErro = 'Nada'
   validarSenhas = true;
   querCriar = false;
 
@@ -106,32 +107,33 @@ export class CadastroComponent {
 }
   
 
-  salvar(): void {
+salvar(): void {
 
-    this.mostraFracasso = false;
-    this.mostraSucesso = false;
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-  
-    const usuario = {
-      ...this.form.getRawValue(),
-    };
-  
-    console.log(usuario);
-  
-    of(this.api.postUser(usuario).subscribe({
-      next: data => {
-        console.log(data);
-        this.mostraSucesso = true;  
-        setTimeout(()=>this.router.navigate(['/perfil']), 4000);
-      },
-      error: erro => {
-        console.log(erro);  
-        this.mostraFracasso = true;
-      },
-      complete: () => console.info('complete') 
-    }));
+  this.mostraFracasso = false;
+  this.mostraSucesso = false;
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  const usuario = {
+    ...this.form.getRawValue(),
+  };
+
+  console.log(usuario);
+
+  of(this.api.postUser(usuario).subscribe({
+    next: data => {
+      console.log(data);
+      this.mostraSucesso = true;  
+      setTimeout(()=>this.router.navigate(['/home']), 4000);
+    },
+    error: erro => {
+      console.log(erro);
+      this.textoErro = erro.error.email || erro.error.username  
+      this.mostraFracasso = true;
+    },
+    complete: () => console.info('complete') 
+  }));
+}
 }

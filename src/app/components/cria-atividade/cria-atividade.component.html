@@ -32,13 +32,7 @@
                                 Atividade cadastrada com sucesso!
                             </div>
                             <div *ngIf="mostraFracasso" class="alert alert-danger mt-2" role="alert">
-                                Essa Atividade já foi cadastrada para você!
-                            </div>
-                            <div *ngIf="mostraFracasso2" class="alert alert-danger mt-2" role="alert">
-                                Você só pode registrar sua participação no dia do evento!
-                            </div>
-                            <div *ngIf="mostraEventoNaoEncontrado" class="alert alert-warning mt-2" role="alert">
-                                Evento Não Encontrado!
+                                {{textoErro}}
                             </div>
                         </div>
                     </div>

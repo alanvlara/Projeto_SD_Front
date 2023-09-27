@@ -8,15 +8,15 @@
     
       <form [formGroup]="form">
         <div class="row mb-3 d-flex justify-content-center">
-          <div class="col-3">
+          <div class="col-md-3">
             <label for="titulo">Titulo</label>
             <input id="titulo" type="text" class="form-control" formControlName="titulo">
         </div>
-          <div class="col-3">
+          <div class="col-md-3">
             <label for="data">Data</label>
             <input id="data" type="text" class="form-control" formControlName="data">
         </div>
-          <div class="col-3">
+          <div class="col-md-3">
               <label for="esporte">Esporte</label>
               <select data-dropup-auto="false" class="form-select form-control" aria-label="Default select example"  formControlName="esporte">
                   <option selected>Clique para selecionar</option>
@@ -41,25 +41,29 @@
           </div>
       </div>
         <div class="row mb-3  d-flex justify-content-center">
-          <div class="col-9">
+          <div class="col-md-9">
             <label for="link">Link</label>
             <input id="link" type="text" class="form-control" formControlName="link">
         </div>
         </div>
       </form>
-    <div class="row my-5">
-      <div class="col-12 d-flex justify-content-center">
-        <button *ngIf="eventoSelecionado.qr_code && edicao" type="button" class="me-2 btn btn-sm qr_code" data-bs-toggle="modal" data-bs-target="#qrCodeModal">
+    <div *ngIf="!edicaoHabilitada" class="row my-5 d-flex justify-content-center">
+      <div class="col-md-9 d-flex justify-content-md-between">
+        <button *ngIf="eventoSelecionado.qr_code" type="button" class=" btn btn-sm qr_code" data-bs-toggle="modal" data-bs-target="#qrCodeModal">
           Acessar Qr Code
         </button>
-        <button *ngIf="eventoSelecionado.qr_code && edicao" type="button" class="btn btn-secondary" (click)="editar()">Editar Evento</button>
-        <button *ngIf="eventoSelecionado.qr_code && edicao" type="button" class="btn btn-danger mx-2" (click)="deletar()">Deletar Evento</button>
-        <button *ngIf="eventoSelecionado.qr_code && edicao" class="btn btn-success btn-sm mx-2" (click)="exportarExcel()">Exportar Dados Para Excel</button>
-        <button *ngIf="edicao" routerLink="/eventos" class="btn btn-primary btn-sm">Ir Para Lista de Eventos</button>
-        <button *ngIf="!edicao" type="button" class="btn btn-success mx-2" (click)="salvar()">Salvar</button>
-        <button *ngIf="!edicao" type="button" class="btn btn-danger" (click)="fechar()">Fechar</button>
+        <button *ngIf="eventoSelecionado.qr_code" type="button" class="btn btn-secondary btn-sm" (click)="editar()">Editar Evento</button>
+        <button *ngIf="eventoSelecionado.qr_code" type="button" class="btn btn-danger btn-sm " (click)="deletar()">Deletar Evento</button>
+        <button *ngIf="eventoSelecionado.qr_code" class="btn btn-success btn-sm " (click)="exportarExcel()">Exportar Dados Para Excel</button>
+        <button  routerLink="/eventos" class="btn btn-primary btn-sm">Ir Para Lista de Eventos</button>
       </div>
     </div>
+      <div *ngIf="edicaoHabilitada" class="row my-5 d-flex justify-content-center">
+        <div class="col-md-9 d-flex justify-content-md-center">
+          <button  type="button" class="btn btn-success btn-sm " (click)="salvar()">Salvar</button>
+          <button  type="button" class="btn btn-danger btn-sm" (click)="fechar()">Fechar</button>
+        </div>
+      </div>
     <div *ngIf="salvarClicado" class="d-flex align-items-center justify-content-center text-success mt-1">
       <strong>Carregando...</strong>
       <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
@@ -68,7 +72,7 @@
       Dados atualizados com sucesso, a pagina sera recarregada
     </div>
     <div *ngIf="mostraPutFracasso" class="alert alert-danger mt-1" role="alert">
-      Não foi possível atualizar os dados
+      {{textoErroPut}}
     </div>
     <div *ngIf="deletarClicado" class="d-flex align-items-center justify-content-center text-success mt-1">
       <strong>Carregando...</strong>
@@ -78,7 +82,7 @@
       Evento deletado com sucesso, você será redirecionado a lista de eventos
     </div>
     <div *ngIf="mostraDeleteFracasso" class="alert alert-danger mt-1" role="alert">
-      Não foi possível deletar o evento
+      {{textoErroDel}}
     </div>
   
     <!-- Modal -->

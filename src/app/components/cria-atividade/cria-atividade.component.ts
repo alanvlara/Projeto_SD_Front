@@ -18,8 +18,7 @@ export class CriaAtividadeComponent {
   mostraSucesso = false;
   salvarClicado = false;
   mostraFracasso = false;
-  mostraFracasso2 = false;
-  mostraEventoNaoEncontrado = false;
+  textoErro = 'Nada'
   mostraMensagemPermissaoCamera = false;
   photoUrl: any = null;
   leituraQrCode :any;
@@ -28,9 +27,7 @@ export class CriaAtividadeComponent {
 
   lerQrCode(): void {
 
-    this.mostraEventoNaoEncontrado = false;
     this.mostraFracasso = false;
-    this.mostraFracasso2 = false;
     this.mostraSucesso = false;
     this.cameraFechada = false;
 
@@ -121,9 +118,7 @@ export class CriaAtividadeComponent {
 
   
   tirarFoto() {
-    this.mostraEventoNaoEncontrado = false;
     this.mostraFracasso = false;
-    this.mostraFracasso2 = false;
     this.mostraSucesso = false;
     this.cameraFechada = false;
 
@@ -288,48 +283,24 @@ export class CriaAtividadeComponent {
   salvar() {
     this.leituraQrCode = localStorage.getItem('leituraQrCode');
     this.salvarClicado = true;
+    const textoQrCode = this.leituraQrCode.replaceAll('-', ' ')
     
-    const atividades$ = this.api.getAtividades().pipe(
-      catchError(error => {
-        console.log(error);
-        return of([]); // Trata o erro retornando um array vazio
-      })
-    );
-  
-    const eventos$ = this.api.getAllEventos().pipe(
-      catchError(error => {
-        console.log(error);
-        return of([]); // Trata o erro retornando um array vazio
-      })
-    );
-  
-    forkJoin([atividades$, eventos$]).subscribe(([atividades, eventos]) => {
-      for (let i = 0; i < atividades.length; i++) {
-        // console.log("verificando atividades")
-        if (atividades[i].evento.titulo == this.leituraQrCode.replaceAll('-', ' ') && atividades[i].usuario.id == this.authService.getUserId()) {
-          console.log("Evento já cadastrado para esse usuário!");
-          this.mostraFracasso = true;
-          return;
+    of(this.api.getAllEventos().subscribe({
+      next: eventos => {
+        for(let i=0; i<eventos.length; i++)
+        {
+          if(eventos[i].titulo === textoQrCode)
+          {
+            this.postarAtividade(eventos[i])
+          }
+          else
+          {
+            console.log("Evento nao existe")
+          }
         }
-      }
-      let contador = 0;
-      for (let i = 0; i < eventos.length; i++) {
-        // console.log("veficiando os eventos")
-        if (this.leituraQrCode.replaceAll('-', ' ') == eventos[i].titulo) {
-          console.log("achei evento");
-          this.postarAtividade(eventos[i]);   
-          return;
-        }
-        else if (this.leituraQrCode.replaceAll('-', ' ') != eventos[i].titulo){
-          contador++;
-          console.log("Evento não encontrado");
-        }
-      }
-      if(contador == eventos.length){
-        this.mostraEventoNaoEncontrado = true;
-        this.salvarClicado = false;
-      }
-    });
+      },
+      error: erro => console.log(erro)
+    }))  
   }
       
       
@@ -356,19 +327,18 @@ export class CriaAtividadeComponent {
   
       // Adicione a imagem ao FormData com o nome de arquivo único
       atividade.append("foto", this.photoUrl, fileName);
-      console.log(atividade.get('foto'))
     }
 
   
     of(this.api.postAtividade(atividade).subscribe({
       next: data => {
-          console.log(data);
+          // console.log(data);
           this.mostraSucesso = true;
           this.salvarClicado = false;
       },
       error: erro => {
           console.log(erro);
-          this.mostraFracasso2 = true;
+          this.textoErro = erro.error
           this.salvarClicado = false;
       },
       complete: () => { 
@@ -376,6 +346,5 @@ export class CriaAtividadeComponent {
         this.salvarClicado = false;
       }
   }));
-  
   }
 }

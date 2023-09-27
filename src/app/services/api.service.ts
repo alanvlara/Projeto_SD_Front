@@ -77,7 +77,7 @@ export class ApiService {
   getAllEventos(): Observable<any>{
     const token = this.authService.getAuthToken();
     const httpHeaders = new HttpHeaders({'Content-type': 'application/json', Authorization: `Bearer ${token}`});
-    return this.http.get(this.baseUrl + '/evento/eventos',
+    return this.http.get(this.baseUrl + 'evento/eventos',
     {headers: httpHeaders});
   };
 
@@ -90,7 +90,7 @@ export class ApiService {
   getUserLogado(): Observable<ApiResponse> {
     const token = localStorage.getItem('token');
     const httpHeaders = new HttpHeaders({'Content-type': 'application/json', Authorization: `Bearer ${token}`});
-    return this.http.get<ApiResponse>(this.baseUrl + '/accounts/user/', { headers: httpHeaders });
+    return this.http.get<ApiResponse>(this.baseUrl + 'accounts/user/', { headers: httpHeaders });
   }
 
   getAllUsers(){
@@ -108,7 +108,7 @@ export class ApiService {
   postAtividade(atividade: FormData){
     const token = localStorage.getItem('token');
     const httpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
-    return this.http.post<any>(this.baseUrl + '/atividade/atividades/', atividade, { headers: httpHeaders })
+    return this.http.post<any>(this.baseUrl + 'atividade/atividades/', atividade, { headers: httpHeaders })
   }
 
   getAtividadeById(id: string|null){
@@ -136,8 +136,27 @@ export class ApiService {
   }
 
   confirmEmail(key: any){
-    return this.http.post(this.baseUrl + '/accounts/registration/verify-email/',{"key": key}, {});
+    const token = localStorage.getItem('token');
+    return this.http.post(this.baseUrl + 'accounts/registration/verify-email/',{"key": key}, {});
   }
+
+  exportarDadosParaExcel(id:any){
+    const token = localStorage.getItem('token');
+    const httpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
+    return this.http.get(this.baseUrl + `evento/exportar_excel/${id}/`,  {
+      headers: httpHeaders,
+      responseType: 'blob'
+  });
+  }
+
+  gerarPDFAtividade(atividadeId: any){
+    const token = localStorage.getItem('token');
+    const httpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
+    return this.http.get(this.baseUrl + `atividade/gerar_certificado/${atividadeId}/`, {
+        headers: httpHeaders,
+        responseType: 'blob'
+    });
+}
 
   
 }

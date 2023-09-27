@@ -44,7 +44,7 @@ export class AtividadeDetailComponent {
 
   //Buscando no backend ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   gerarPDF(atividadeId: number) {
-    this.http.get(`http://localhost:8000/atividade/gerar_certificado/${atividadeId}/`, { responseType: 'blob' })
+    this.api.gerarPDFAtividade(atividadeId)
       .subscribe((blob: Blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');

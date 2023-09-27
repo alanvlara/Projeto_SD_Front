@@ -23,8 +23,12 @@ export class EventosDetailComponent {
     mostraDeleteSucesso = false;
     mostraPutFracasso = false;
     mostraDeleteFracasso = false;
-  edicao = true;
-  eventoSelecionado = {
+    textoErroPut = 'Nada';
+    textoErroDel = 'Nada';
+    edicaoHabilitada = false;
+    eventoId : string | null = '0';
+
+    eventoSelecionado = {
     'id': 0,
     'titulo':'',
     'usuario': {'first_name':'', 'last_name':''},
@@ -37,10 +41,10 @@ export class EventosDetailComponent {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-        titulo: [''],
-        esporte: [''],
-        data: [''],
-        link: ['']
+      titulo: [{ value: '', disabled: true }],
+      esporte: [{ value: '', disabled: true }],
+      data: [{ value: '', disabled: true }],
+      link: [{ value: '', disabled: true }]
     });
 
     this.route.paramMap.subscribe(params => {const eventoId = params.get('id')
@@ -59,11 +63,34 @@ export class EventosDetailComponent {
 }
 
 exportarExcel(){
-
+  this.route.paramMap.subscribe(params => {this.eventoId = params.get('id')});
+  of(this.api.exportarDadosParaExcel(this.eventoId).subscribe({
+    next: (data: any) => {
+        // Faça o download do arquivo Excel retornado na resposta
+        const blob = new Blob([data], { type: 'application/vnd.ms-excel' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'dados_exportados.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    },
+    error: (error) => {
+        // Lidere com erros, se houver algum
+        console.error(error);
+    }
+  }));
 }
 
-editar(){
-  this.edicao = false;
+editar() {
+  this.edicaoHabilitada = !this.edicaoHabilitada;
+
+  if (this.edicaoHabilitada) {
+    this.form.enable();
+  } else {
+    this.form.disable();
+  }
 }
 
 salvar(){
@@ -74,10 +101,11 @@ salvar(){
     next: data => {console.log(data)
       this.salvarClicado = false;
       this.mostraPutSucesso = true;
-    setTimeout(() =>window.location.reload, 3000)},
-    error: error => {console.log(error)
+    setTimeout(() =>window.location.reload(), 3000)},
+    error: erro => {console.log(erro)
       this.salvarClicado = false;
-      this.mostraPutFracasso = false}
+      this.mostraPutFracasso = false
+      this.textoErroPut = erro.error}
   }))});
 }
 
@@ -93,9 +121,10 @@ deletar(){
       this.deletarClicado = false;
       this.mostraDeleteSucesso = true;
     setTimeout(() =>window.location.reload, 3000)},
-    error: error => {console.log(error)
+    error: erro => {console.log(erro)
       this.deletarClicado = false;
-      this.mostraDeleteFracasso=true}
+      this.mostraDeleteFracasso=true
+      this.textoErroDel = erro.error}
   }))});
 }
 

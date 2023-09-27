@@ -14,11 +14,13 @@ export class ConfiguracoesComponent {
   form!: FormGroup;
   mostraSucesso = false;
   mostraFracasso = false;
+  textoErro = 'Nada'
   usuario :any;
   activeLink = 'active';
   querCriar = false;
   salvarClicado = false;
   userPhotoUrl: string | undefined;
+  criador = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -49,6 +51,7 @@ export class ConfiguracoesComponent {
       of(this.api.getUserLogado().subscribe({
         next: data => {
           this.usuario = data
+          this.criador = data.criador
 
           this.form.patchValue({
             username: this.usuario.username,
@@ -139,8 +142,9 @@ onFileSelected(event: any) {
     formData.append('is_active', 'true');
     formData.append('quer_criar', usuario.querCriar);
     formData.append('representa', usuario.representa)
+    formData.append('criador', `${this.criador}`)
 
-    console.log(formData.get('querCriar'))
+    console.log(this.criador)
     
     if (usuario.foto instanceof File) {
       formData.append('foto', usuario.foto, usuario.foto.name);
@@ -157,6 +161,7 @@ onFileSelected(event: any) {
         },
         error: erro => {
             console.log(erro);
+            this.textoErro = erro.error.email || erro.error.username;
             this.mostraFracasso = true;
             this.salvarClicado = false;
         },

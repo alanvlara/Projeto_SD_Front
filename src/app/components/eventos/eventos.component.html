@@ -16,8 +16,9 @@
   <div class="row">
     <div class="col-4">
       <form class="d-flex mt-3 form-group" role="search">
-          <input [(ngModel)]="textoBusca" name="busca" class="form-control me-2" type="search" placeholder="Ex: Corrida" aria-label="Search" >
-          <button id="buscar" class="btn btn-mg" (click)="filtrarEventosPorNome()">Buscar</button>
+          <input [(ngModel)]="textoBusca" name="busca" class="form-control me-2" type="search" placeholder="Digite o nome do Evento" aria-label="Search">
+          <button id="buscar" class="btn btn-mg" data-toggle="tooltip"
+          data-placement="top" title="Busca por nome" (click)="filtrarEventosPorNome()">Buscar</button>
       </form>
   </div>
   </div>
@@ -40,7 +41,7 @@
                 <div class="col-md-2 d-flex justify-content-center">
                   <small class="mb-2">{{ evento.value.data | date: 'dd/MM/YYYY' }}</small>
                 </div>
-                <div class="col-4 d-flex justify-content-start">
+                <div class="col-md-4 d-flex justify-content-start">
                   <small class="word-wrap-break">
                     Saiba mais em: <a href="{{evento.value.link}}">{{ evento.value.link}}</a>
                   </small>

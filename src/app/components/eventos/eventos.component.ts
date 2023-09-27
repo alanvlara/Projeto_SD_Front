@@ -23,7 +23,7 @@ export class EventosComponent {
 
   constructor(private api:ApiService){
     this.getEventos();
-    this.filtrarEventos();
+    // this.filtrarEventos();
   }
 
   ngOnInit(){
@@ -33,21 +33,7 @@ export class EventosComponent {
     }));
   }
 
-  filtrarEventos() {
-    const dataAtual = new Date();
-
-    this.eventosFuturos = this.eventos.filter((evento) => {
-      const dataEvento = new Date(evento.data);
-      return dataEvento >= dataAtual;
-    });
-
-    this.eventosPassados = this.eventos.filter((evento) => {
-      const dataEvento = new Date(evento.data);
-      return dataEvento < dataAtual;
-    });
-
-    this.eventosAdmin = this.eventos.filter((evento) => evento.qr_code);
-  }
+  
 
   getEventos(){
     of(this.api.getAllEventos().subscribe({
