@@ -17,6 +17,8 @@ export class CadastroComponent {
   textoErro = 'Nada'
   validarSenhas = true;
   querCriar = false;
+  salvarClicado = false;
+  politica = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -105,10 +107,14 @@ export class CadastroComponent {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.querCriar = isChecked;
 }
+
+onPoliticaChange(event: Event): void {
+  const isChecked2 = (event.target as HTMLInputElement).checked;
+  this.politica = isChecked2;
+}
   
 
 salvar(): void {
-
   this.mostraFracasso = false;
   this.mostraSucesso = false;
   if (this.form.invalid) {
@@ -116,6 +122,7 @@ salvar(): void {
     return;
   }
 
+  this.salvarClicado = true;
   const usuario = {
     ...this.form.getRawValue(),
   };
@@ -125,13 +132,15 @@ salvar(): void {
   of(this.api.postUser(usuario).subscribe({
     next: data => {
       console.log(data);
-      this.mostraSucesso = true;  
+      this.mostraSucesso = true;
+      this.salvarClicado = false;  
       setTimeout(()=>this.router.navigate(['/home']), 4000);
     },
     error: erro => {
       console.log(erro);
       this.textoErro = erro.error.email || erro.error.username  
       this.mostraFracasso = true;
+      this.salvarClicado = false;
     },
     complete: () => console.info('complete') 
   }));

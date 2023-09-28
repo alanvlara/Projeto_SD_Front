@@ -41,7 +41,7 @@ export class EventosComponent {
 
 
   getCurrentDateInBrasilia(): Date {
-    // Crie uma nova data
+    // Cria uma nova data
     const now = new Date();
 
     // Defina o fuso horário como Brasília

@@ -19,6 +19,7 @@ export class HomeComponent {
   acess = '';
   refresh = '';
   entrarClicado : boolean = false;
+  textoFracasso = 'Nada'
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,6 +69,7 @@ entrar(): void {
           localStorage.setItem('mostraHome', 'false')},
       error: erro => {console.log(erro)
       this.entrarClicado = false;
+      this.textoFracasso = erro.error.non_field_errors || erro.error.email;
       this.mostraFracasso = true},
       complete: () => console.info('complete') 
     }));

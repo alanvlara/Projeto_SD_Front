@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Html5Qrcode } from 'html5-qrcode';
-import { catchError, forkJoin, of } from 'rxjs';
+import { of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 

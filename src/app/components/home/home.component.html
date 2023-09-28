@@ -10,24 +10,12 @@
           <div class="carousel-inner">
             <div class="carousel-item active" style="max-width: 100%; height: auto;">
               <img src="https://desporpato.s3.sa-east-1.amazonaws.com/media/padroes/pato+futebol.png" class="img-fluid rounded" alt="..." >
-              <div class="carousel-caption d-none d-md-block"style="--bs-bg-opacity: 0.7;">
-                <h1 style="color: black;">Futebol Pato Branco</h1>
-                <!-- <p style="color: black; --bs-bg-opacity: .5;"><strong>Celebração do espírito esportivo: Um pato branco driblando a diversão no futebol de Pato Branco!</strong></p> -->
-              </div>
             </div>
             <div class="carousel-item" style="max-width: 100%; height: auto;">
               <img src="https://desporpato.s3.sa-east-1.amazonaws.com/media/padroes/pato+volei.jpg" class="img-fluid rounded" alt="...">
-              <div class="carousel-caption d-none d-md-block" style="--bs-bg-opacity: 0.7;">
-                <h1 style="color: black;">Vôlei Pato Branco</h1>
-                <!-- <p style="color: black;"><strong>Saltando para a vitória: Um pato branco mostra sua maestria no vôlei de Pato Branco!</strong></p> -->
-              </div>
             </div>
             <div class="carousel-item" style="max-width: 100%; height: auto;">
               <img src="https://desporpato.s3.sa-east-1.amazonaws.com/media/padroes/pato+corrida.jpg" class="img-fluid rounded" alt="...">
-              <div class="carousel-caption d-none d-md-block" style="--bs-bg-opacity: 0.7;">
-                <h1 style="color: black;">Corrida Pato Branco</h1>
-                <!-- <p style="color: black;"><strong>Pelas trilhas de Pato Branco: A cidade se move com paixão pela corrida!</strong></p> -->
-              </div>
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -54,7 +42,7 @@
                   <a routerLink="/cadastro" routerLinkActive="active">Criar uma conta</a>
                 </div>
                 <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
-                  Usuário e/ou senha incorretos
+                  {{textoFracasso}}
                 </div>
                 <button [disabled]="entrarClicado" id="signIn" class="btn btn-mg" (click)="entrar()">Entrar</button>
               </form>
