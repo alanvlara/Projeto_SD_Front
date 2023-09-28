@@ -20,7 +20,7 @@
     - [Ranking](#Ranking)
     - [Not-found](#Not-found)
     - [Configuracoes](#Configuracoes)
-4. [Services][#Services]
+4. [Services](#Services)
     - [Api-Service](#Api-Service)
     - [Auth-Guard](#Auth-Guard)
     - [Home-Guard](#Home-Guard)
