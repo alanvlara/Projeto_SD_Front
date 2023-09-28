@@ -52,6 +52,7 @@ export class ConfiguracoesComponent {
         next: data => {
           this.usuario = data
           this.criador = data.criador
+          this.querCriar = data.quer_criar
 
           this.form.patchValue({
             username: this.usuario.username,
@@ -68,7 +69,8 @@ export class ConfiguracoesComponent {
           this.userPhotoUrl = this.usuario.foto;
         },
       error: error => console.log(error)
-  }))
+  }));
+
 }
 
 onCriadorChange(event: Event): void {

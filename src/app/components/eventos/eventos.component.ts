@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { of } from 'rxjs';
 
@@ -21,28 +21,24 @@ export class EventosComponent {
   textoBusca = '';
 
 
-  constructor(private api:ApiService){
-    this.getEventos();
-    // this.filtrarEventos();
-  }
+  constructor(private api:ApiService){}
 
   ngOnInit(){
     of(this.api.getUserLogado().subscribe({
       next: data => this.criador = data.criador,
       error: error => console.log(error)
     }));
-  }
 
-  
-
-  getEventos(){
     of(this.api.getAllEventos().subscribe({
       next: data =>{this.eventos = data
-      this.eventosFiltrados = data},
+        this.atualizarEventosFiltrados();},
       error: erro => console.log(erro),
       complete: () => console.info('complete') 
-    }))
+    }));
+    
+    
   }
+
 
   getCurrentDateInBrasilia(): Date {
     // Crie uma nova data
@@ -59,11 +55,26 @@ export class EventosComponent {
     return eventDate.getTime() - comparisonDate.getTime();
   }
 
+  atualizarEventosFiltrados() {
+    // Atualize a lista de eventos filtrados com base no filtro selecionado
+    if (this.filtro === 'futuros') {
+      this.eventosFiltrados = this.eventos.filter(evento =>
+        this.compareDates(evento.data, this.getCurrentDateInBrasilia()) >= 0
+      );
+    } else if (this.filtro === 'passados') {
+      this.eventosFiltrados = this.eventos.filter(evento =>
+        this.compareDates(evento.data, this.getCurrentDateInBrasilia()) < 0
+      );
+    } else if (this.filtro === 'admin') {
+      this.eventosFiltrados = this.eventos.filter(evento => evento.qr_code);
+    }
+  
+    // Defina a página atual de volta para a primeira página
+    this.paginaAtual = 1;
+  }
+
   filtrarEventosPorNome() {
     this.eventosFiltrados = this.eventos.filter(evento => evento.titulo.toLowerCase().includes(this.textoBusca.toLowerCase()));
   }
   
-
 }
-
-

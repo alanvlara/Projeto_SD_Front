@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -15,6 +15,7 @@ export class EventosDetailComponent {
     private api : ApiService,
     private route : ActivatedRoute,
     private formBuilder: FormBuilder,
+    private router: Router,
     
   ){}
     salvarClicado = false;
@@ -120,7 +121,7 @@ deletar(){
     next: data => {console.log(data)
       this.deletarClicado = false;
       this.mostraDeleteSucesso = true;
-    setTimeout(() =>window.location.reload, 3000)},
+    setTimeout(() =>this.router.navigate(['/eventos']), 3000)},
     error: erro => {console.log(erro)
       this.deletarClicado = false;
       this.mostraDeleteFracasso=true
@@ -130,4 +131,3 @@ deletar(){
 
 
 }
- 

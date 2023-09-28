@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Html5Qrcode } from 'html5-qrcode';
 import { catchError, forkJoin, of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,6 +14,7 @@ export class CriaAtividadeComponent {
   constructor(
     private api : ApiService,
     private authService: AuthenticationService,
+    private router: Router
   ){}
 
   mostraSucesso = false;
@@ -332,9 +334,10 @@ export class CriaAtividadeComponent {
   
     of(this.api.postAtividade(atividade).subscribe({
       next: data => {
-          // console.log(data);
           this.mostraSucesso = true;
           this.salvarClicado = false;
+          setTimeout(()=>this.router.navigate([`/atividades/${data.id}`]), 4000);
+          
       },
       error: erro => {
           console.log(erro);
