@@ -35,6 +35,10 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'accounts/logout/', null, { headers: httpHeaders });
   }
 
+  postResendEmail(email: string){
+    return this.http.post(this.baseUrl + 'accounts/registration/resend-email/', { 'email': email });
+  }
+
   refreshToken(refresh_token: string | null) {
     const token = localStorage.getItem('token');
     const httpHeaders = new HttpHeaders({'Content-type': 'application/json', Authorization: `Bearer ${token}`});

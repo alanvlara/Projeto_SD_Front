@@ -19,7 +19,10 @@ export class HomeComponent {
   acess = '';
   refresh = '';
   entrarClicado : boolean = false;
-  textoFracasso = 'Nada'
+  textoFracasso = 'Nada';
+  linkVerificaEmail = false;
+  mostraReenvio = false;
+  textoSucesso = 'Nada';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +41,7 @@ export class HomeComponent {
 
 
 entrar(): void {
+  this.linkVerificaEmail = false;
   this.mostraFracasso = false;
     if (this.form.invalid) {
         this.form.markAllAsTouched();
@@ -70,12 +74,39 @@ entrar(): void {
       error: erro => {console.log(erro)
       this.entrarClicado = false;
       this.textoFracasso = erro.error.non_field_errors || erro.error.email;
+      if(erro.error.non_field_errors == "E-mail não foi verificado.")
+      {
+        this.linkVerificaEmail = true;
+      }
       this.mostraFracasso = true},
       complete: () => console.info('complete') 
     }));
 
   
 
+}
+
+reenviaEmail(){
+  this.mostraFracasso = false;
+  this.entrarClicado = true;
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
+}
+
+  const usuario = this.form.getRawValue();
+  of(this.api.postResendEmail(usuario.email).subscribe({
+    next: data => {
+      console.log(data)
+      this.mostraReenvio = true;
+      this.textoSucesso = "Email reenviado. A página será recarregada";
+      setTimeout(() =>window.location.reload(), 4000);
+      this.entrarClicado = false;
+  },
+    error: erro => {
+      console.error(erro);
+      this.entrarClicado = false;}
+  }))
 }
 }
 
