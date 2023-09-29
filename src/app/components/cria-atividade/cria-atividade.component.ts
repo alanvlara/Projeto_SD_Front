@@ -294,10 +294,13 @@ export class CriaAtividadeComponent {
           if(eventos[i].titulo === textoQrCode)
           {
             this.postarAtividade(eventos[i])
+            break;
           }
           else
           {
-            console.log("Evento nao existe")
+            this.mostraFracasso = true;
+            this.textoErro = "Evento não cadastrado!!!";
+            this.salvarClicado = false;
           }
         }
       },

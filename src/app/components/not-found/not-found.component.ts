@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-not-found',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./not-found.component.css']
 })
 export class NotFoundComponent {
+  isDarkMode: boolean = false;
 
+  constructor(
+    private servicoTema: ThemeService
+  ){}
+  ngOnInit(){
+    this.servicoTema.currentTheme.subscribe(theme => {
+      this.isDarkMode = theme === 'dark';
+    });
+  }
 }
