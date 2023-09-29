@@ -22,19 +22,19 @@ export class ConfirmEmailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Recupear a key que chega na url
+    // Recupera a key que chega na url
     const key = this._activatedRoute.snapshot.params['key'];
 
     // A função confirmEmail() faz um POST para a url do backend /accounts/registration/verify-email/, enviando a key
     of(this.api.confirmEmail(key)
       .subscribe({
         next: (value) => {
-          // Em caso de sucesso, o e-mail já está confirmado e esta variável pode ser usada no html para mostrar uma mensagem de sucesso e algum link para redirecioanar para o login
+          // Em caso de sucesso, o e-mail já está confirmado, mostrar uma mensagem de sucesso e algum link para redirecioanar para o login
           setTimeout( ()=> this.router.navigate(['/home']), 5000)
           this.mostraSucesso = true;
         },
         error: (error) => {
-          // Em caso de erro, esta variável pode ser usada no html para mostrar uma mensagem de erro
+          // Em caso de erro, esta variável  mostra uma mensagem de erro
           this.mostraFracasso = true;
         }
       }))

@@ -73,14 +73,9 @@ export class AppComponent implements OnInit {
           // Erro 401 (não autorizado) recebido
 
           // Realize o logout local (exemplo: remova o token de autenticação)
-          // this.authService.logoutLocally();
-
-          // Limpe o cache (localStorage)
           localStorage.clear();
 
-          // Recarregue a página
-          // window.location.reload();
-
+          //navegue para home
           this.router.navigate(['/home']);
         }
       },

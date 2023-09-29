@@ -2,13 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import localePt from '@angular/common/locales/pt';
-import { registerLocaleData } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-
-
-
-registerLocaleData(localePt); // Registre o locale 'pt'
 
 @Component({
   selector: 'app-atividade-detail',
@@ -19,7 +12,6 @@ export class AtividadeDetailComponent {
   constructor(
     private api : ApiService,
     private route : ActivatedRoute,
-    private http : HttpClient
     
   ){}
   atividadeSelecionada = {

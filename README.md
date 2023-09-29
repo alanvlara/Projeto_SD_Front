@@ -20,7 +20,7 @@
     - [Ranking](#Ranking)
     - [Not-found](#Not-found)
     - [Configuracoes](#Configuracoes)
-4. [Services](#Services)
+4. [Services][#Services]
     - [Api-Service](#Api-Service)
     - [Auth-Guard](#Auth-Guard)
     - [Home-Guard](#Home-Guard)
@@ -31,104 +31,104 @@
 
 ## Introdução
 
-**DesporPato** é um webapp destinado a promover e gerenciar o turismo pelo esporte em Pato Branco. Esse repositório contém o frontend do projeto desenvolvido em Angular. Você pode acessar o repositório do backend no link: [https://https://github.com/alanvlara/Projeto_SD_Back](https://https://github.com/alanvlara/Projeto_SD_Back)
+*DesporPato* é um webapp destinado a promover e gerenciar o turismo pelo esporte em Pato Branco. Esse repositório contém o frontend do projeto desenvolvido em Angular. Você pode acessar o repositório do backend no link: [https://https://github.com/alanvlara/Projeto_SD_Back](https://https://github.com/alanvlara/Projeto_SD_Back)
 
-- **Navegação**: A navegação entre as rotas do frontend é configurada no app-routing-module.ts.
--**Prooteção de Rotas**: A proteção de rotas que necessitam de autenticação é feita através do service auth-guard.ts em conjunto com o service auth-interceptor.ts e o service home-guard.ts.
-- **Imagens**: Todas as imagens que o frontend pega estão hopedadas em um bucket no S3 da AWS.
--**Dados**: Os dados estão em um banco de dados no RDS da AWS.
+- *Navegação*: A navegação entre as rotas do frontend é configurada no app-routing-module.ts.
+-*Prooteção de Rotas*: A proteção de rotas que necessitam de autenticação é feita através do service auth-guard.ts em conjunto com o service auth-interceptor.ts e o service home-guard.ts.
+- *Imagens*: Todas as imagens que o frontend pega estão hopedadas em um bucket no S3 da AWS.
+-*Dados*: Os dados estão em um banco de dados no RDS da AWS.
 
 ## App
 
-    O app component desse projeto utiliza a tag router-outlet para alternar entre os componentes. No app component tenho a navbar do site, essa navbar estará em todas as rotas com diferentes campos dependendo do user estar autenticado ou não.
+O app component desse projeto utiliza a tag router-outlet para alternar entre os componentes. No app component tenho a navbar do site, essa navbar estará em todas as rotas com diferentes campos dependendo do user estar autenticado ou não.
 
 ## Componentes
 
 ### Home
 
-    É o componente inicial onde será feito o login ou o signup, a rota dele é "/home". 
+É o componente inicial onde será feito o login ou o signup, a rota dele é "/home". 
 
 ### Cadastro
 
-    É o componente chamado quando o usuário clica no link "Criar Conta" na rota "/home", nele você pode cadastrar sua conta informando os dados da mesma.
+É o componente chamado quando o usuário clica no link "Criar Conta" na rota "/home", nele você pode cadastrar sua conta informando os dados da mesma.
 
 ### Sobre
 
-    Esta seção fornece informações sobre o projeto DesporPato, seu objetivo e algumas funcionalidades-chave.
+Esta seção fornece informações sobre o projeto DesporPato, seu objetivo e algumas funcionalidades-chave.
 
 ### Politica
 
-    Aqui, você pode encontrar informações sobre a política de privacidade e termos de uso do DesporPato.
+Aqui, você pode encontrar informações sobre a política de privacidade e termos de uso do DesporPato.
 
 ### Confirm-email
 
-    Este componente lida com a confirmação de e-mails para garantir a segurança das contas de usuário.
+Este componente lida com a confirmação de e-mails para garantir a segurança das contas de usuário.
 
 ### Perfil
 
-    O componente Perfil permite aos usuários verificar suas informações pessoais e visualizar acessa botões para acessar o ranking, registrar nova atividade ou acessar suas atividades.
+O componente Perfil permite aos usuários verificar suas informações pessoais e visualizar acessa botões para acessar o ranking, registrar nova atividade ou acessar suas atividades.
 
 ### Eventos
 
-    Neste componente, os usuários podem visualizar os eventos esportivos organizados em Pato Branco.
+Neste componente, os usuários podem visualizar os eventos esportivos organizados em Pato Branco.
 
 ### Eventos-detail
 
-    Fornece informações detalhadas sobre um evento específico, incluindo datas, titulo e detalhes adicionais que podem ser visualizados apenas pelo criador do evento.
+Fornece informações detalhadas sobre um evento específico, incluindo datas, titulo e detalhes adicionais que podem ser visualizados apenas pelo criador do evento.
 
 ### Cria-evento
 
-    Este é o componente usado pelos criadores de eventos para criar e gerenciar eventos esportivos.
+Este é o componente usado pelos criadores de eventos para criar e gerenciar eventos esportivos.
 
 ### Atividades
 
-    Os usuários podem visualizar atividades esportivas das quais participaram.
+Os usuários podem visualizar atividades esportivas das quais participaram.
 
 ### Atividade-detail
 
-    Fornece informações detalhadas sobre uma atividade específica, incluindo a foto e a possibilidade de gerar um certificado de participação.
+Fornece informações detalhadas sobre uma atividade específica, incluindo a foto e a possibilidade de gerar um certificado de participação.
 
 ### Cria-atividade
 
-    Componente usado pelos criadores de atividades para criar e gerenciar eventos esportivos.
+Componente usado pelos criadores de atividades para criar e gerenciar eventos esportivos.
 
 ### Ranking
 
-    Exibe o ranking dos usuários com base em suas atividades esportivas e desempenho.
+Exibe o ranking dos usuários com base em suas atividades esportivas e desempenho.
 
 ### Not-found
 
-    Este componente é exibido quando uma página não é encontrada, fornecendo uma mensagem de erro amigável.
+Este componente é exibido quando uma página não é encontrada, fornecendo uma mensagem de erro amigável.
 
 ### Configuracoes
 
-    Permite aos usuários personalizar configurações relacionadas à sua conta e preferências.
+Permite aos usuários personalizar configurações relacionadas à sua conta e preferências.
 
 ## Services
 
 ### Api-Service
 
-    Este serviço lida com a comunicação com a API do backend para buscar e enviar dados.
+Este serviço lida com a comunicação com a API do backend para buscar e enviar dados.
 
 ### Auth-Guard
 
-    O Auth-Guard é um serviço de guarda que protege rotas autenticadas, garantindo que apenas usuários autenticados acessem determinadas páginas.
+O Auth-Guard é um serviço de guarda que protege rotas autenticadas, garantindo que apenas usuários autenticados acessem determinadas páginas.
 
 ### Home-Guard
 
-    Este serviço de guarda controla o acesso à página inicial, direcionando os usuários para a página correta com base em seu status de autenticação.
+Este serviço de guarda controla o acesso à página inicial, direcionando os usuários para a página correta com base em seu status de autenticação.
 
 ### Theme-Service
 
-    O Theme-Service permite aos usuários personalizar o tema visual do aplicativo.
+O Theme-Service permite aos usuários personalizar o tema visual do aplicativo.
 
 ### Authentication-Service
 
-    Este serviço lida com a autenticação de usuários, incluindo login, registro e gerenciamento de sessões.
+Este serviço lida com a autenticação de usuários, incluindo login, registro e gerenciamento de sessões.
 
 ### Auth-Interceptor
 
-    O Auth-Interceptor é um interceptor HTTP que adiciona automaticamente tokens de autenticação às solicitações HTTP para proteger as rotas autenticadas.
+O Auth-Interceptor é um interceptor HTTP que adiciona automaticamente tokens de autenticação às solicitações HTTP para proteger as rotas autenticadas.
 
 
 # Tutorial de Teste
@@ -137,25 +137,24 @@ Siga os passos abaixo para testar todas as funcionalidades.
 
 ## 1. Acesso ao WebApp
 
-- Acesse o aplicativo através do link: [https://alanvlara.github.io/Projeto_SD_Front/](https://alanvlara.github.io/Projeto_SD_Front/)
+- Acesse o aplicativo através do link: [https://alanvlara.github.io/Projeto_SD_Front/](https://alanvlara.github.io/Projeto_SD_Front/), você deve rodar a api do backend localmente, o código dela está disponível no repositório [https://github.com/alanvlara/Projeto_SD_Back](https://github.com/alanvlara/Projeto_SD_Back).
 
-## 2. Criação de Contas
-- Clique em criar conta e preencha os campos, se marcar o campo "deseja criar eventos" irá aparecer o campo "Representa" onde você pode informar a empresa, instituição e etc que você representa.
-- Crie uma conta.
-- Execute a verificação no email.
-> Nota: o usuário informar que deseja criar eventos não torna ele um criador, apenas mostra para nossa equipe o interesse do mesmo. Para tornar um usuário criador deve ser seguido dos próximos dois passos desse tutorial.
-
-
-## 3. Acesso ao Admin
+## 2. Acesso ao Admin
 
 - Clone o repositório do servidor do backend para a sua máquina.
 - Navegue até o diretório do projeto.
 - Crie um ambiente virtual (venv) para isolar as dependências.
 - Instale os requerimentos do projeto.
 - Execute o servidor localmente.
-  > Nota: O acesso ao servidor local é necessário devido a problemas de acesso pelo servidor hospedado. Esta é uma solução temporária para edição do banco de dados.
 - Acesse a interface de administração do Django em [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin).
 - Utilize as credenciais do super usuário fornecidas para fazer o login.
+
+## 3. Criação de Contas
+- Clique em criar conta e preencha os campos, se marcar o campo "deseja criar eventos" irá aparecer o campo "Representa" onde você pode informar a empresa, instituição e etc que você representa.
+- Crie uma conta.
+- Execute a verificação no email.
+> Nota: o usuário informar que deseja criar eventos não torna ele um criador, apenas mostra para nossa equipe o interesse do mesmo. Para tornar um usuário criador deve ser seguido dos próximos dois passos desse tutorial.
+
 
 ## 4. Tornando um Usuário Criador
 
@@ -213,7 +212,3 @@ Siga os passos abaixo para testar todas as funcionalidades.
 - Se desejar sair, clique em sair na navbar e com isso seu usuario sera deslogado do sistema.
 
 ---
-
-
-
-

@@ -78,7 +78,6 @@ exportarExcel(){
         window.URL.revokeObjectURL(url);
     },
     error: (error) => {
-        // Lidere com erros, se houver algum
         console.error(error);
     }
   }));
