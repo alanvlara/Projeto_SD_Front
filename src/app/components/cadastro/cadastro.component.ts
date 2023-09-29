@@ -138,7 +138,8 @@ salvar(): void {
     },
     error: erro => {
       console.log(erro);
-      this.textoErro = erro.error.email || erro.error.username  || "Erro: "+ erro.error.password1;
+      this.textoErro = "Erro: "+ (erro.error.email || erro.error.username  || erro.error.non_field_errors
+      || erro.error.password1);
       this.mostraFracasso = true;
       this.salvarClicado = false;
     },
