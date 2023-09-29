@@ -289,19 +289,21 @@ export class CriaAtividadeComponent {
     
     of(this.api.getAllEventos().subscribe({
       next: eventos => {
-        for(let i=0; i<eventos.length; i++)
-        {
-          if(eventos[i].titulo === textoQrCode)
-          {
-            this.postarAtividade(eventos[i])
+        let eventoEncontrado = false; // Variável de sinalização
+
+        for (let i = 0; i < eventos.length; i++) {
+          if (eventos[i].titulo === textoQrCode) {
+            this.postarAtividade(eventos[i]);
+            eventoEncontrado = true; // Define como verdadeiro se o evento for encontrado
             break;
           }
-          else
-          {
-            this.mostraFracasso = true;
-            this.textoErro = "Evento não cadastrado!!!";
-            this.salvarClicado = false;
-          }
+        }
+
+        // Verifica se nenhum evento foi encontrado e executa o tratamento de erro correspondente
+        if (!eventoEncontrado) {
+          this.mostraFracasso = true;
+          this.textoErro = "Evento não cadastrado!!!";
+          this.salvarClicado = false;
         }
       },
       error: erro => console.log(erro)
