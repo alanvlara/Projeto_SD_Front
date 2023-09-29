@@ -88,7 +88,7 @@
 <div class="row">
     <div class="col mb-2">
         <button class="btn btn-success me-1" [disabled]="salvarClicado" (click)="salvar()">Salvar</button>
-        <a class="btn btn-danger" (click)="navigateToProfile()">Cancelar</a>
+        <button class="btn btn-danger" [disabled]="salvarClicado" (click)="navigateToProfile()">Cancelar</button>
     </div>
     <div *ngIf="salvarClicado" class="d-flex align-items-center justify-content-center text-success mt-1">
         <strong>Carregando...</strong>

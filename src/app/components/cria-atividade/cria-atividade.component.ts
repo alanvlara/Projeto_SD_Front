@@ -341,6 +341,7 @@ export class CriaAtividadeComponent {
       },
       error: erro => {
           console.log(erro);
+          this.mostraFracasso = true;
           this.textoErro = erro.error
           this.salvarClicado = false;
       },

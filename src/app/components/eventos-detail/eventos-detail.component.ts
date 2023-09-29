@@ -96,6 +96,7 @@ editar() {
 
 salvar(){
   this.salvarClicado = true;
+  this.mostraPutFracasso = false;
   const evento = this.form.getRawValue();
   this.route.paramMap.subscribe(params => {const eventoId = params.get('id')
   of(this.api.putEvento(evento, eventoId).subscribe({
@@ -105,7 +106,7 @@ salvar(){
     setTimeout(() =>window.location.reload(), 3000)},
     error: erro => {console.log(erro)
       this.salvarClicado = false;
-      this.mostraPutFracasso = false
+      this.mostraPutFracasso = true;
       this.textoErroPut = erro.error}
   }))});
 }
@@ -116,6 +117,7 @@ fechar(){
 
 deletar(){
   this.deletarClicado = true;
+  this.mostraDeleteFracasso = false;
   this.route.paramMap.subscribe(params => {const eventoId = params.get('id')
   of(this.api.deleteEvento(eventoId).subscribe({
     next: data => {console.log(data)
@@ -124,7 +126,7 @@ deletar(){
     setTimeout(() =>this.router.navigate(['/eventos']), 3000)},
     error: erro => {console.log(erro)
       this.deletarClicado = false;
-      this.mostraDeleteFracasso=true
+      this.mostraDeleteFracasso=true;
       this.textoErroDel = erro.error}
   }))});
 }
