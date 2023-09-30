@@ -98,8 +98,7 @@ reenviaEmail(){
     next: data => {
       console.log(data)
       this.mostraReenvio = true;
-      this.textoSucesso = "Email reenviado. A página será recarregada";
-      setTimeout(() =>window.location.reload(), 4000);
+      this.textoSucesso = "Email reenviado, Verifique sua caixa de mensagens. A página será recarregada";
       this.entrarClicado = false;
   },
     error: erro => {
@@ -108,6 +107,8 @@ reenviaEmail(){
       this.textoFracasso = erro.error;
       this.entrarClicado = false;}
   }));
+
+  setTimeout(() =>window.location.reload(), 5000);
 }
 }
 
