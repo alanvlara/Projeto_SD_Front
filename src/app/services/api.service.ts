@@ -68,7 +68,7 @@ export class ApiService {
         "cidade" : usuario.cidade,
         "estado" : usuario.estado,
         "representa" : usuario.representa,
-        "criador" : usuario.criador
+        "quer_criar" : usuario.querCriar
     }, {headers: httpHeaders});
   }
 

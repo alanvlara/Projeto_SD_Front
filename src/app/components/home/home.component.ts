@@ -43,6 +43,7 @@ export class HomeComponent {
 entrar(): void {
   this.linkVerificaEmail = false;
   this.mostraFracasso = false;
+  this.mostraReenvio = false;
     if (this.form.invalid) {
         this.form.markAllAsTouched();
         return;
@@ -81,14 +82,12 @@ entrar(): void {
       this.mostraFracasso = true},
       complete: () => console.info('complete') 
     }));
-
-  
-
 }
 
 reenviaEmail(){
   this.mostraFracasso = false;
   this.entrarClicado = true;
+  this.mostraReenvio = false;
   if (this.form.invalid) {
     this.form.markAllAsTouched();
     return;
@@ -105,8 +104,10 @@ reenviaEmail(){
   },
     error: erro => {
       console.error(erro);
+      this.mostraFracasso = true;
+      this.textoFracasso = erro.error;
       this.entrarClicado = false;}
-  }))
+  }));
 }
 }
 

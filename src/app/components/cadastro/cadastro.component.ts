@@ -103,7 +103,7 @@ export class CadastroComponent {
     }
   }
 
-  onQuerCriarChange(event: Event): void {
+onQuerCriarChange(event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
     this.querCriar = isChecked;
 }
