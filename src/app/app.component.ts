@@ -75,7 +75,8 @@ export class AppComponent implements OnInit {
           // Realize o logout local (exemplo: remova o token de autenticação)
           localStorage.clear();
 
-          //navegue para home
+          //recarregue e navegue para home
+          window.location.reload();
           this.router.navigate(['/home']);
         }
       },
