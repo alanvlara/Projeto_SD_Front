@@ -100,6 +100,7 @@ reenviaEmail(){
       this.mostraReenvio = true;
       this.textoSucesso = "Email reenviado, Verifique sua caixa de mensagens. A página será recarregada";
       this.entrarClicado = false;
+      setTimeout(()=> this.mostraReenvio = false, 5000);
   },
     error: erro => {
       console.error(erro);
@@ -107,8 +108,6 @@ reenviaEmail(){
       this.textoFracasso = erro.error;
       this.entrarClicado = false;}
   }));
-
-  setTimeout(() =>window.location.reload(), 5000);
 }
 }
 
