@@ -98,9 +98,9 @@ reenviaEmail(){
     next: data => {
       console.log(data)
       this.mostraReenvio = true;
-      this.textoSucesso = "Email reenviado, Verifique sua caixa de mensagens. A página será recarregada";
+      this.textoSucesso = "Email reenviado, Verifique sua caixa de mensagens. E após verificar o e-mail tente novamente";
       this.entrarClicado = false;
-      setTimeout(()=> this.mostraReenvio = false, 5000);
+      setTimeout(()=> this.mostraReenvio = false, 6000);
   },
     error: erro => {
       console.error(erro);
