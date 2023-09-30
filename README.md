@@ -175,7 +175,7 @@ Siga os passos abaixo para testar todas as funcionalidades.
 ## 6. Adicionando uma atividade
 
 - Acesse Atividades na navbar e depois clique em Criar Atividade.
-- Para criar a atividade é necessário ler o qrcode, após lido irá liberar o botão salvar.
+- Para criar a atividade é necessário ler o qrcode do evento que você está tentando registrar a sua participação. Após lido um qrcode irá liberar o botão salvar e mostrar o código lido.
 - Se desejar tire uma foto da atividade, se não irá ser utilizada uma imagem padrão do nosso sistema.
 - Salve, caso tenha sucesso você irá receber uma mensagem de sucesso e será redirecionado para a página detalhada desssa atividade. Caso contrário aparecerá uma mensagem de erro.
 
