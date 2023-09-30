@@ -42,7 +42,7 @@
                   <a routerLink="/cadastro" routerLinkActive="active">Criar uma conta</a>
                 </div>
                 <div *ngIf="mostraFracasso" class="alert alert-danger" role="alert">
-                  {{textoFracasso}} <p *ngIf="linkVerificaEmail">Não recebeu o email? Para Reenviar clique <a href="" role="button" (click)="reenviaEmail()">aqui</a></p>
+                  {{textoFracasso}} <p *ngIf="linkVerificaEmail">Não recebeu o email? Para Reenviar clique <a href="" role="button" (click)="reenviaEmail()" onclick="return false;">aqui</a></p>
                 </div>
                 <div *ngIf="mostraReenvio" class="alert alert-success" role="alert">
                   {{textoSucesso}} 
