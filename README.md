@@ -20,13 +20,14 @@
     - [Ranking](#Ranking)
     - [Not-found](#Not-found)
     - [Configuracoes](#Configuracoes)
-4. [Services][#Services]
+4. [Services](#Services)
     - [Api-Service](#Api-Service)
     - [Auth-Guard](#Auth-Guard)
     - [Home-Guard](#Home-Guard)
     - [Theme-Service](#Theme-Service)
     - [Authentication-Service](#Authentication-Service)
     - [Auth-Interceptor](#Auth-Interceptor)
+5. [Tutorial](#Tutorial)
 
 
 ## Introdução
@@ -34,7 +35,7 @@
 *DesporPato* é um webapp destinado a promover e gerenciar o turismo pelo esporte em Pato Branco. Esse repositório contém o frontend do projeto desenvolvido em Angular. Você pode acessar o repositório do backend no link: [https://https://github.com/alanvlara/Projeto_SD_Back](https://https://github.com/alanvlara/Projeto_SD_Back)
 
 - *Navegação*: A navegação entre as rotas do frontend é configurada no app-routing-module.ts.
--*Prooteção de Rotas*: A proteção de rotas que necessitam de autenticação é feita através do service auth-guard.ts em conjunto com o service auth-interceptor.ts e o service home-guard.ts.
+-*Proteção de Rotas*: A proteção de rotas que necessitam de autenticação é feita através do service auth-guard.ts em conjunto com o service auth-interceptor.ts e o service home-guard.ts.
 - *Imagens*: Todas as imagens que o frontend pega estão hopedadas em um bucket no S3 da AWS.
 -*Dados*: Os dados estão em um banco de dados no RDS da AWS.
 
@@ -131,13 +132,13 @@ Este serviço lida com a autenticação de usuários, incluindo login, registro 
 O Auth-Interceptor é um interceptor HTTP que adiciona automaticamente tokens de autenticação às solicitações HTTP para proteger as rotas autenticadas.
 
 
-# Tutorial de Teste
+# Tutorial
 
 Siga os passos abaixo para testar todas as funcionalidades.
 
 ## 1. Acesso ao WebApp
 
-- Acesse o aplicativo através do link: [https://alanvlara.github.io/Projeto_SD_Front/](https://alanvlara.github.io/Projeto_SD_Front/), você deve rodar a api do backend localmente, o código dela está disponível no repositório [https://github.com/alanvlara/Projeto_SD_Back](https://github.com/alanvlara/Projeto_SD_Back).
+- Acesse o aplicativo através do link: [https://alanvlara.github.io/Projeto_SD_Front/](https://alanvlara.github.io/Projeto_SD_Front/), você deve rodar o servidor do backend localmente, o código dela está disponível no repositório [https://github.com/alanvlara/Projeto_SD_Back](https://github.com/alanvlara/Projeto_SD_Back).
 
 ## 2. Acesso ao Admin
 
@@ -153,12 +154,13 @@ Siga os passos abaixo para testar todas as funcionalidades.
 - Clique em criar conta e preencha os campos, se marcar o campo "deseja criar eventos" irá aparecer o campo "Representa" onde você pode informar a empresa, instituição e etc que você representa.
 - Crie uma conta.
 - Execute a verificação no email.
+- Faça login no app pelo frontend.
 > Nota: o usuário informar que deseja criar eventos não torna ele um criador, apenas mostra para nossa equipe o interesse do mesmo. Para tornar um usuário criador deve ser seguido dos próximos dois passos desse tutorial.
 
 
 ## 4. Tornando um Usuário Criador
 
-- No painel de administração, vá para `Usuarios`
+- No painel de administração do django, vá para `Usuarios`
 - Escolha o usuário que deseja transformar em criador.
 - Na página de edição, marque a caixa de seleção `criador`.
 - Salve as alterações.
