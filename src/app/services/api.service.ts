@@ -130,7 +130,7 @@ export class ApiService {
   putEvento(evento: FormData, id: any){
     const token = localStorage.getItem('token');
     const httpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
-    return this.http.put(this.baseUrl + `evento/eventos/${id}/`, evento, {headers: httpHeaders})
+    return this.http.patch(this.baseUrl + `evento/eventos/${id}/`, evento, {headers: httpHeaders})
   }
 
   deleteEvento(id: any){
